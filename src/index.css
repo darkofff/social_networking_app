@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Start - Classes that changess look of selected NavList element */
+.active {
+  background: #f59e0b;
+}
+
+@media (min-width: 768px) {
+  .active {
+    background-color: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid #f59e0b;
+  }
+}
+
+/* End */
+
+.modal-animation-close {
+  animation-name: modal-animation-close;
+  animation-duration: 0.5s;
+}
+@keyframes modal-animation-close {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.form-row > input:focus + label {
+  color: #f59e0b;
+}
+.form-row > textarea:focus + label {
+  color: #f59e0b;
+}
+
+body {
+  min-width: 260px;
+}

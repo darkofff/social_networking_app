@@ -1,0 +1,13 @@
+# Fix the typescript issues with supabase in:
+    - useRegisterAccount.ts 
+    - userAuth f: getCurrentUser()
+    @ potential fix: use types generated from supabase
+    - do it at the end when database is finished
+
+
+# Form validation
+
+# Horizontal phone orientation // kinda done
+
+#
+        
