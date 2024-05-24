@@ -1,9 +1,9 @@
-import { UpdateProfileData } from "../../types/UpdateProfileData";
 import Button from "../../ui/Button";
 import Modal from "../../ui/Modal";
 import EditProfileForm from "./EditProfileForm";
+import { DataToUpdate } from "./profileTypes";
 
-function UpdateProfileModal({ dataToUpdate }) {
+function UpdateProfileModal({ dataToUpdate }: DataToUpdate) {
   return (
     <div className="w-full">
       <Modal>

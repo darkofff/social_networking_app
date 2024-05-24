@@ -1,21 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@100..900&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Start - Classes that changess look of selected NavList element */
-.active {
-  background: #f59e0b;
-}
-
-@media (min-width: 768px) {
-  .active {
-    background-color: transparent;
-    border-radius: 0;
-    border-bottom: 1px solid #f59e0b;
-  }
-}
-
-/* End */
 
 .modal-animation-close {
   animation-name: modal-animation-close;
@@ -39,4 +26,14 @@
 
 body {
   min-width: 260px;
+}
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px white inset !important; /* Override background color */
+  -webkit-text-fill-color: black !important; /* Override text color */
+}
+
+/* Target autocomplete suggestions for other browsers */
+input:autofill {
+  box-shadow: 0 0 0 30px white inset !important; /* Override background color */
+  /* text-fill-color: black !important; */ /* Override text color */
 }

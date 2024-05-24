@@ -112,9 +112,9 @@ export async function registerAccount({
 
 // Suplemantory Api call that checks whether user registered account. This means that user added name, last_name and nickname
 async function isUserRegistered() {
-  let { data: dataPublic, error: errorPublic } = await supabase
+  let { data: dataPublic, error: errorPublic } = (await supabase
     .from("users")
-    .select("is_registration_complete");
+    .select("is_registration_complete")) as any;
 
   if (errorPublic) {
     console.error(errorPublic.message);

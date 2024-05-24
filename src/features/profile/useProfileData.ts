@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { getProfileData } from "../../services/menageData";
+import { getProfileData } from "../../services/apiUserData";
 
 function useProfileData() {
-  console.log("NOT PLZ");
   const {
     data = {},
     error,
@@ -14,7 +13,7 @@ function useProfileData() {
     refetchOnWindowFocus: false,
   });
 
-  return { data , error, isPending };
+  return { data, error, isPending };
 }
 
 export default useProfileData;

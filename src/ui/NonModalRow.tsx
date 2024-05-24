@@ -21,10 +21,10 @@ function NonModalRow({
   return (
     <div className="absolute top-0 flex min-h-dvh w-full justify-center bg-gradient-to-bl from-amber-100 to-emerald-950  ">
       <Row classes="flex justify-center  ">
-        <HiCog6Tooth
+        {/*  <HiCog6Tooth
           onClick={callback}
           className="absolute  right-2 top-2 h-14 w-14 hover:text-slate-800 sm:top-10"
-        />
+        /> */}
         <NarrowRow>
           <div className=" relative flex flex-col rounded-md px-4 md:bg-amber-50/10 md:px-8 md:py-20 md:backdrop-blur-xl">
             <header className="mb-10 flex justify-center">

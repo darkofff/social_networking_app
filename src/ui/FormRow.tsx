@@ -15,14 +15,23 @@ function FormRow({ children, type }: Props) {
     return (
       <div
         className="
+        
         form-row
         flex
         flex-col-reverse
         
-        border-2
-        border-dotted
-        border-red-600
-        [&>input]:border-2
+        rounded-md
+        border
+        border-neutral-200
+        
+        [&>input]:p-1
+        [&>input]:px-3
+        [&>input]:pt-3
+        [&>input]:outline-none
+        [&>label]:px-3 
+        [&>label]:py-1
+        [&>label]:font-semibold
+        [&>label]:text-neutral-400
   "
       >
         {children}
@@ -39,25 +48,29 @@ function FormRow({ children, type }: Props) {
         flex
         flex-col
         [&>input]:rounded-md
+        [&>input]:bg-neutral-50
         [&>input]:p-1
         [&>input]:px-3
-        [&>input]:pt-7
-        [&>input]:text-lg 
+        [&>input]:pt-7 
+        [&>input]:text-lg
         [&>input]:font-normal
         [&>input]:text-neutral-700
-        [&>input]:outline-none
-        [&>input]:focus-within:outline  
-        [&>input]:focus-within:ring-2
-        [&>input]:focus-within:ring-amber-500 
+        [&>input]:outline-none  
+        [&>input]:focus-within:outline
+        [&>input]:focus-within:ring-2 
+         
         
-        [&>label]:absolute
-        [&>label]:top-0 [&>label]:w-[90%]        
-        [&>label]:rounded-md
-        [&>label]:bg-white 
+        [&>input]:focus-within:ring-amber-500
+        [&>label]:absolute [&>label]:top-0        
+        
+        [&>label]:w-[96%] 
+        [&>label]:rounded-t-md 
+        [&>label]:bg-neutral-50 
         [&>label]:px-3 
         [&>label]:py-1
         [&>label]:font-semibold
         [&>label]:text-neutral-400
+        dark:[&>label]:bg-neutral-700
         
         [&>select]:rounded-full
         [&>select]:px-3
@@ -72,14 +85,16 @@ function FormRow({ children, type }: Props) {
         [&>textarea]:min-h-36
         [&>textarea]:resize-y
         [&>textarea]:rounded-md
+        [&>textarea]:bg-neutral-50
         [&>textarea]:px-3
-        [&>textarea]:pt-7
-        [&>textarea]:text-lg 
+        [&>textarea]:pt-7 
+        [&>textarea]:text-lg
         [&>textarea]:font-normal
         [&>textarea]:outline-none
         [&>textarea]:focus-within:outline
         [&>textarea]:focus-within:ring-2
         [&>textarea]:focus-within:ring-amber-500
+        dark:[&>textarea]:bg-neutral-700
         
 
       

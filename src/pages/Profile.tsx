@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../ui/Button";
 import ProfileInfo from "../features/profile/ProfileInfo";
-import UserPosts from "../features/profile/UserPosts";
 import LogCurrentSession from "../utilities/LogCurrentSession";
 
 function Profile() {
@@ -17,9 +16,9 @@ function Profile() {
   }
 
   return (
-    <div>
+    <div className="p-1">
       <ProfileInfo />
-      <UserPosts />
+      {/* <UserPosts /> */}
       <LogCurrentSession />
       <Button callback={handleLogout}>Logout</Button>
     </div>

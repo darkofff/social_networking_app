@@ -1,25 +1,88 @@
-import { useState } from "react";
-import { useGetSuggestions } from "./useGetSuggestions";
+import { useEffect, useState } from "react";
 
-import ProfileActions from "./ProfileActions";
+import { useGetSwipeProfile } from "./useGetSwipeProfile";
+
+import { ImageNameObj, PhotoKeys } from "./searchTypes";
+
+import UserActions from "./UserActions";
+import ProfileManagePhots from "./ProfileManagePhots";
 
 function DisplayProfiles() {
-  const { profiles, isPending } = useGetSuggestions();
-  const [index, setIndex] = useState<number>(1);
+  /* 
+    onClick na przycisku "następny profil" uruchomi funckję useGetUsernames, 
+    która uzyskuje kolejne username i index a następnie umieszcza je w url
 
-  console.log(profiles);
+    Zmianę parametrów url wykrywa useGetSwipeProfile 
+    i na tej podstawie pobiera informacje o użytkowniku 
+  */
+  const { swipeData, error, isPending } = useGetSwipeProfile();
 
-  if (isPending) return null;
-  const { name, profile_pic, bio } = profiles?.at(index);
+  const [index, setIndex] = useState<number | null>(null);
+  const [photoObjToDisplay, setPhotoObjToDisplay] = useState<ImageNameObj>({});
+  const [arrayOfIndexes, setArrayOfIndexes] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!isPending) {
+      for (let i = 1; i <= 6; i++) {
+        if (swipeData?.[`image_${i}`]) {
+          setArrayOfIndexes((state) => {
+            return [...state, i];
+          });
+          setIndex((state) => (state === null ? i - 1 : state));
+          setPhotoObjToDisplay((obj) => {
+            obj[`image_${i}` as PhotoKeys] = swipeData[`image_${i}`];
+            return obj;
+          });
+        }
+      }
+    }
+    return () => {
+      setArrayOfIndexes([]);
+      setIndex(null);
+    };
+  }, [isPending]);
+
+  if (isPending) return <p>WAIT</p>;
+
+  const { bio_swipe, name } = swipeData;
 
   return (
-    <div className="relative h-dvh border-2 border-dotted border-red-800 ">
-      <div className="sticky top-[64px]  h-[calc(100%-64px)] w-full bg-slate-400"></div>
+    <div className="mx-auto  flex h-dvh max-w-[540px] flex-col justify-center">
+      <div className="relative z-10 mx-auto overflow-y-auto rounded-lg    ">
+        <div className="space-y-2 p-2">
+          <ProfileManagePhots
+            index={index}
+            photoObjToDisplay={photoObjToDisplay}
+            arrayOfIndexes={arrayOfIndexes}
+            setIndex={setIndex}
+          />
+
+          <div className="h-0 overflow-hidden">
+            STRETCHER-It's only function is to stretch div to it's max
+            width-------------------------------------------------------------------------------------------------------------------------------------
+          </div>
+
+          <div className="text-3xl font-semibold">{name}</div>
+          <pre className="text-wrap font-LibreFranklin text-base font-normal text-black">
+            {bio_swipe}
+          </pre>
+        </div>
+        <div className="sticky bottom-0 ">
+          <UserActions />
+        </div>
+      </div>
     </div>
   );
 }
 
 export default DisplayProfiles;
-/* 
-<div className=" flex  h-[calc(100%-64px)] items-center   "></div>
-*/
+{
+  /* <div className="space-y-1 rounded-lg border bg-neutral-100 p-1">
+            <div className="rounded-lg border bg-neutral-50 p-1 py-4  text-3xl font-semibold">
+              {name}
+            </div>
+            <pre className=" rounded-lg border bg-neutral-50 p-1 py-4 font-LibreFranklin text-base font-normal text-black">
+              {bio_swipe}
+            </pre>
+          </div> */
+}

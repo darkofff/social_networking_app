@@ -1,26 +1,16 @@
-import { useTheme } from "../contexts/ThemeContext";
-import Button from "../ui/Button";
+import PreferencesCategory from "../features/settings/PreferencesCategory";
+import SettingsRow from "../features/settings/SettingsRow";
 import Main from "../ui/Main";
 
 function Settings() {
-  const { theme, setTheme } = useTheme();
   return (
-    <Main>
-      <div>
-        <span>Theme:</span>
-        <Button
-          callback={() =>
-            setTheme((currentTheme) => {
-              if (currentTheme === "dark") return "light";
-              else return "dark";
-            })
-          }
-        >
-          Switch color theme
-        </Button>
-      </div>
-      <h1>THEME: {theme}</h1>
-    </Main>
+    <div className="mt-6">
+      <Main>
+        <SettingsRow title="Preferences">
+          <PreferencesCategory />
+        </SettingsRow>
+      </Main>
+    </div>
   );
 }
 

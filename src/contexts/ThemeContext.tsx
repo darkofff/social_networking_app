@@ -2,26 +2,42 @@ import { createContext, useContext, useEffect, useState } from "react";
 
 import { ChildrenProp } from "../types/ChildrenProp";
 
+enum ThemeTypes {
+  DARK = "dark",
+  LIGHT = "light",
+  DEFAULT = "default",
+}
+
 interface Theme {
-  theme: string;
-  setTheme: React.Dispatch<React.SetStateAction<string>>;
+  theme: ThemeTypes;
+  setTheme: React.Dispatch<React.SetStateAction<ThemeTypes>>;
 }
 
 const ThemeContext = createContext<Theme | null>(null);
 
 function ThemeProvider({ children }: ChildrenProp) {
-  const [theme, setTheme] = useState<string>(() => {
+  const [theme, setTheme] = useState<ThemeTypes>(() => {
     // 1. Get info about theme preference from local storage
-    let theme = localStorage.getItem("theme");
-    if (theme === "dark" || theme === "light") return theme;
+    let theme = localStorage.getItem("theme") as ThemeTypes | null;
+    if (theme === ThemeTypes.DARK || theme === ThemeTypes.LIGHT) return theme;
+
+    // 1.5. If prefered theme === DEFAULT
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (theme === ThemeTypes.DEFAULT) {
+      if (darkThemeMq.matches) {
+        localStorage.setItem("theme", ThemeTypes.DARK);
+      } else {
+        localStorage.setItem("theme", ThemeTypes.DARK);
+      }
+      return theme;
+    }
 
     // 2. If local storage doesn't exist get system prefered theme
     if (!theme) {
-      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
       if (darkThemeMq.matches) {
-        theme = "dark";
+        theme = ThemeTypes.DARK;
       } else {
-        theme = "light";
+        theme = ThemeTypes.LIGHT;
       }
     }
 
@@ -33,6 +49,11 @@ function ThemeProvider({ children }: ChildrenProp) {
   });
 
   useEffect(() => {
+    if (theme === ThemeTypes.DEFAULT) {
+      const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (darkThemeMq.matches) setTheme(ThemeTypes.DARK);
+      if (!darkThemeMq.matches) setTheme(ThemeTypes.LIGHT);
+    }
     localStorage.setItem("theme", theme);
   }, [theme]);
 

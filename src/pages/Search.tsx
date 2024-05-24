@@ -1,16 +1,7 @@
-import { useState } from "react";
-import DisplayProfiles from "../features/search/DisplayProfiles";
-import ConfirmScreen from "../features/search/ConfirmScreen";
+import { Outlet } from "react-router-dom";
 
 function Search() {
-  //initial is true, should be taken form db
-  const [displayConfirmScreen, setDisplayConfirmScreen] =
-    useState<boolean>(true);
-  // context is navbar shown
-
-  if (!displayConfirmScreen) return <DisplayProfiles />;
-
-  return <ConfirmScreen confirm={() => setDisplayConfirmScreen(true)} />;
+  return <Outlet />;
 }
 
 export default Search;

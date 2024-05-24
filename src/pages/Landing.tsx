@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import NonModalRow from "../ui/NonModalRow";
 
 function Landing() {
-  const { isAuth, user, is_registration_complete } = useUser();
+  const { isAuth, is_registration_complete } = useUser();
   const navigate = useNavigate();
-
 
   useEffect(() => {
     if (isAuth && is_registration_complete) {

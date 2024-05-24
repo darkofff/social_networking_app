@@ -1,12 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "./useUser";
 import { useEffect } from "react";
-
 import { ChildrenProp } from "../../types/ChildrenProp";
-import { H1 } from "../../ui/Typography";
 
 function ProtectedRoute({ children }: ChildrenProp) {
-  const { error, user, isLoading, isAuth } = useUser();
+  const { error, user, isLoading, isAuth } = useUser() as any;
 
   const navigate = useNavigate();
   const isRegistered = user?.is_registration_complete;

@@ -1,14 +1,18 @@
-import AddPost from "../features/news/AddPost";
+import AddPost from "../features/posts/AddPost";
+import DisplayPosts from "../features/news/DisplayPosts";
+import PostsActions from "../features/news/PostsActions";
+import TodosNews from "../features/news/TodosNews";
 import Main from "../ui/Main";
 
 function News() {
   return (
-    <div className="my-8 ">
+    <div className="my-8 px-1">
       <Main>
-        <div className="space-y-4">
-          <AddPost />
-        </div>
+        <AddPost />
+        <PostsActions />
+        <DisplayPosts />
       </Main>
+      <TodosNews />
     </div>
   );
 }

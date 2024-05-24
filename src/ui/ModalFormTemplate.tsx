@@ -15,6 +15,7 @@ import Button from "./Button";
 interface Props extends ChildrenProp {
   title: string;
   onSubmit?: () => {};
+  onSubmitControlled?: (e: React.FormEvent<HTMLFormElement>) => void;
   buttonText: string;
   buttonDisabled?: boolean;
 }
@@ -24,6 +25,7 @@ function ModalFormTemplate({
   children,
   buttonText,
   onSubmit,
+  onSubmitControlled,
   buttonDisabled = false,
 }: Props) {
   return (
@@ -34,7 +36,7 @@ function ModalFormTemplate({
       <h1 className="text-4xl font-semibold tracking-wide sm:text-6xl">
         {title}
       </h1>
-      <form onSubmit={onSubmit} className="">
+      <form onSubmit={onSubmit || onSubmitControlled} className="">
         {children}
         <div className="mx-auto mt-10 w-[75%]">
           <Button type="submit" disabled={buttonDisabled}>
@@ -44,24 +46,6 @@ function ModalFormTemplate({
       </form>
     </div>
   );
-  /* return (
-    <div className="mx-auto flex min-h-full flex-col justify-center space-y-10 border-2 border-red-500  ">
-      <header className=" flex justify-center ">
-        <img src="/logos/logo-main.png" alt="logo" className="h-28 " />
-      </header>
-      <h1 className="text-4xl font-semibold tracking-wide sm:text-6xl">
-        {title}
-      </h1>
-      <form onSubmit={onSubmit} className="">
-        {children}
-        <div className="mx-auto mt-10 w-[75%]">
-          <Button type="submit" disabled={false}>
-            {buttonText}
-          </Button>
-        </div>
-      </form>
-    </div>
-  ); */
 }
 
 export default ModalFormTemplate;

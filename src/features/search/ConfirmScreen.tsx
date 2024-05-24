@@ -1,31 +1,38 @@
 import { createPortal } from "react-dom";
+
 import NonModalRow from "../../ui/NonModalRow";
 import Modal from "../../ui/Modal";
 import Button from "../../ui/Button";
-import { H3 } from "../../ui/Typography";
 import FinishEditProfileForm from "./FinishEditProfileForm";
+import { H3 } from "../../ui/Typography";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
-  confirm: () => void;
+  is_profile_created: boolean;
+  profileData: any;
+  isPending: boolean;
 }
 
-function ConfirmScreen({ confirm }: Props) {
-  const isAccountDone = false;
+function ConfirmScreen({ is_profile_created, profileData, isPending }: Props) {
+  const navigate = useNavigate();
+
   return createPortal(
-    <div className="  pb-[64px] md:pb-0">
+    <div className="md:pb-0">
       <NonModalRow>
-        {!!isAccountDone && (
+        {!!is_profile_created && (
           <div className="my-6">
             <div className="mb-3">
               <H3>Have fun!</H3>
             </div>
-            <Button callback={confirm}>Search for friends</Button>
+            <Button callback={() => navigate("/search")}>
+              Search for friends
+            </Button>
           </div>
         )}
         <div>
           <div className="mb-3">
             <H3>
-              {isAccountDone
+              {is_profile_created
                 ? "Or edit your profile"
                 : "Before searching for friends set up your account"}
             </H3>
@@ -33,11 +40,17 @@ function ConfirmScreen({ confirm }: Props) {
           <Modal>
             <Modal.Button opens="search-profile">
               <Button>
-                {isAccountDone ? "Edit profile" : "Finish setting your account"}
+                {is_profile_created
+                  ? "Edit profile"
+                  : "Finish setting up your account"}
               </Button>
             </Modal.Button>
             <Modal.Window name="search-profile">
-              <FinishEditProfileForm />
+              <FinishEditProfileForm
+                profileData={profileData}
+                isPending={isPending}
+                is_profile_created={is_profile_created}
+              />
             </Modal.Window>
           </Modal>
         </div>

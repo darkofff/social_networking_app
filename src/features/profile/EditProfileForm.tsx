@@ -4,8 +4,9 @@ import { UpdateProfileData } from "../../types/UpdateProfileData";
 
 import FormRow from "../../ui/FormRow";
 import ModalFormTemplate from "../../ui/ModalFormTemplate";
+import { DataToUpdate } from "./profileTypes";
 
-function EditProfileForm({ dataToUpdate }) {
+function EditProfileForm({ dataToUpdate }: DataToUpdate) {
   const { register, handleSubmit } = useForm<UpdateProfileData>({
     defaultValues: dataToUpdate,
   });

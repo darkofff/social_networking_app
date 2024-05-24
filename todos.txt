@@ -7,7 +7,14 @@
 
 # Form validation
 
-# Horizontal phone orientation // kinda done
 
-#
+# To deploy website on gh pages just type 'npm run deploy'
+    - but before all errors have to be fixed
+    - some can be avoided by changing Linting in tsconfig.json to false
+    - but there are also errors from supabase types
         
+
+# Na teraz:
+    -
+    - dodać posty do profilu
+    - dodać żeby dało się zajrzeć na czyjś profil
