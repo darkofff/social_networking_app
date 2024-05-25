@@ -1,4 +1,5 @@
 import { PostData } from "../features/news/NewsTypes";
+import { LikeAction } from "../features/posts/postTypes";
 import { PostUserData } from "../types/postUserData";
 import { supabase } from "./supabaseClient";
 
@@ -35,4 +36,39 @@ export async function getPostAuthor(username: string) {
 
   const postUserData = data?.at(0) as PostUserData;
   return postUserData;
+}
+
+interface IsPostLikedProp {
+  post_id: number;
+  username: string;
+}
+export async function isPostLiked({ post_id, username }: IsPostLikedProp) {
+  console.log(post_id, username);
+
+  const { data, error } = await supabase
+    .from("likes")
+    .select("id")
+    .eq("username", username)
+    .eq("post_id", post_id);
+
+  if (error) throw new Error("Couldn't fetch likes");
+
+  return data.length > 0;
+}
+export async function likeAction({
+  post_id,
+  currentUsername,
+  isPostLiked,
+  user_id,
+}: LikeAction) {
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa");
+  if (!isPostLiked) {
+    const { data, error: incrementError } = await supabase.rpc(
+      "increment_score",
+      {
+        id: post_id,
+      },
+    );
+    if (incrementError) throw new Error("Couldn't like post");
+  }
 }

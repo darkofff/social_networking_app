@@ -5,11 +5,15 @@ import { useInView } from "react-intersection-observer";
 
 import Post from "../posts/Post";
 import { useInfiniteFetchNewsPosts } from "./useInfiniteFetchNewsPosts";
+import useProfileData from "../profile/useProfileData";
 
 function DisplayPosts() {
   const { data, status, error, intersectionRef, hasNextPage } =
     useInfiniteFetchNewsPosts();
 
+  const {
+    data: { username: currentUsername },
+  } = useProfileData();
   return (
     <div>
       {status === "pending" ? (
@@ -24,6 +28,7 @@ function DisplayPosts() {
                 <Post
                   key={post.post_id}
                   username={post.username}
+                  currentUsername={currentUsername}
                   content={post.content}
                   likes={post.likes}
                   post_id={post.post_id}

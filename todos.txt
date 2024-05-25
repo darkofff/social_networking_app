@@ -1,20 +1,29 @@
-# Fix the typescript issues with supabase in:
-    - useRegisterAccount.ts 
-    - userAuth f: getCurrentUser()
-    @ potential fix: use types generated from supabase
-    - do it at the end when database is finished
-
-
-# Form validation
-
-
 # To deploy website on gh pages just type 'npm run deploy'
     - but before all errors have to be fixed
     - some can be avoided by changing Linting in tsconfig.json to false
     - but there are also errors from supabase types
         
+# Fix the typescript issues with supabase in:
+    - replace all the any types with supabase generated types
+    
+
+
+# Form validation
+
+
 
 # Na teraz:
-    -
+    - Lajki
+        - zrobić osobne pobieranie
+            - ile jest lików
+            - czy current user też polikował
+                - czyli by trzeba stworzyć w profiles listę wszystkich 
+                  postów, które user polajkował
+            - invalidate lajki jak się kliknie like
+        - dodać funkcje, która usuwa lajki (proste)
+        - 
+
+
+
     - dodać posty do profilu
     - dodać żeby dało się zajrzeć na czyjś profil

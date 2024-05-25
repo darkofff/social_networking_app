@@ -15,10 +15,9 @@ function NavItem({ to, children, name }: Props) {
     <NavLink
       to={to}
       onClick={navigateTopPage}
-      /*  className={`h-12 w-12 items-center rounded-lg bg-neutral-200/40 p-1 dark:bg-neutral-800 sm:h-[52px] sm:w-[52px] md:flex md:h-auto md:w-full md:flex-col md:rounded-none  md:border-b-2 md:bg-transparent md:py-1 xl:flex-row xl:justify-start xl:gap-x-2 xl:py-4 `} */
       className={({ isActive }) =>
         isActive
-          ? `${navLinkSytles} scale-105 border-b border-green-500/15  bg-green-500/40 shadow-lg md:scale-[1.02] md:bg-green-500/20 md:hover:-translate-y-0 md:active:translate-y-0`
+          ? `${navLinkSytles} scale-105  border-green-500/15  bg-green-500/40 shadow-lg md:scale-[1.02] md:bg-green-500/20 md:hover:-translate-y-0 md:active:translate-y-0`
           : `${navLinkSytles} bg-neutral-400/25`
       }
     >
