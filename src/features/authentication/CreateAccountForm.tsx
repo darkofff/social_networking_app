@@ -13,7 +13,6 @@ function CreateAccountForm() {
   const { signup, isPending } = useCreateAccount();
   
   async function onSubmit(formData: CreateAccData) {
-    console.log();
     signup(formData, {
       onSuccess: () => {
         reset();

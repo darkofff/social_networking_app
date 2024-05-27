@@ -1,25 +1,24 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateProfileData } from "../../services/apiUserData";
-import { UpdateProfileData } from "../../types/UpdateProfileData";
 import { toast } from "react-toastify";
+import { EditProfileObj } from "./profileTypes";
 
 export function useUpdateProfile() {
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData(["profileData"]) as any;
-  console.log(data);
 
   const user_id: string = data.user_id;
 
   const { mutate: updateProfile, isPending } = useMutation({
-    mutationFn: (formData: UpdateProfileData) =>
-      updateProfileData({ user_id, ...formData }),
+    mutationFn: (editProfileObj: EditProfileObj) =>
+      updateProfileData({ user_id, ...editProfileObj }),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["profileData"],
       });
-      toast.success("Success");
+      toast.success("Successfully updated profile");
     },
-    onError: () => toast.error("Could not change"),
+    onError: () => toast.error("Error occured. Could not edit your profile."),
   });
 
   return { updateProfile, isPending };

@@ -1,12 +1,13 @@
 import LanguageSetting from "./LanguageSetting";
+import SettingsRow from "./SettingsRow";
 import ThemeSetting from "./ThemeSetting";
 
 function PreferencesCategory() {
   return (
-    <div className="space-y-2">
+    <SettingsRow title="Preferences">
       <ThemeSetting />
       <LanguageSetting />
-    </div>
+    </SettingsRow>
   );
 }
 

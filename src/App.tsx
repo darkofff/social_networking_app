@@ -27,7 +27,7 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastContainer theme="dark" />
+      <ToastContainer theme="dark" autoClose={3000} />
       <ReactQueryDevtools buttonPosition="bottom-right" />
       <ThemeProvider>
         <ModalProvider>

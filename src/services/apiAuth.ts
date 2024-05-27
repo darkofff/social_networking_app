@@ -123,3 +123,9 @@ async function isUserRegistered() {
   const is_registration_complete = dataPublic?.at(0).is_registration_complete;
   return is_registration_complete;
 }
+
+export async function logout() {
+  let { error } = await supabase.auth.signOut();
+
+  if (error) throw new Error("Couldn't logout");
+}

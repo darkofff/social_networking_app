@@ -1,18 +1,18 @@
-
-
 import Post from "../posts/Post";
-import { useInfiniteFetchNewsPosts } from "./useInfiniteFetchNewsPosts";
-import useProfileData from "../profile/useProfileData";
+import { useInfiniteFetchUserPosts } from "./useInfiniteFetchUserPosts";
 
-function DisplayPosts() {
+interface Props {
+  currentUsername: string;
+  isPendingProfileData: boolean;
+}
+
+function DisplayUserPosts({ currentUsername, isPendingProfileData }: Props) {
+  
   const { data, status, error, intersectionRef, hasNextPage } =
-    useInfiniteFetchNewsPosts();
+    useInfiniteFetchUserPosts(currentUsername);
 
-  const {
-    data: { username: currentUsername },
-  } = useProfileData();
   return (
-    <div>
+    <div className="mt-2">
       {status === "pending" ? (
         <div>Loading...</div>
       ) : status === "error" ? (
@@ -45,4 +45,4 @@ function DisplayPosts() {
   );
 }
 
-export default DisplayPosts;
+export default DisplayUserPosts;

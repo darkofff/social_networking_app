@@ -12,8 +12,6 @@ function AddPost() {
   const { data: profileData, error, isPending } = useProfileData();
 
   function onSubmit(formData: RawFormData) {
-    console.log(formData);
-
     addPost({
       content: formData.post,
       username: profileData.username,

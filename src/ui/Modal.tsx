@@ -106,7 +106,7 @@ function Window({ children, name }: Window) {
                 className="w-fit rounded-md   hover:bg-zinc-200 "
                 onClick={handleCloseModal}
               >
-                <HiX className="h-10 w-10" />
+                <HiX className=" h-10 w-10" />
               </div>
             </div>
             <div className=" flex  min-h-[calc(100%-50px)] items-center ">

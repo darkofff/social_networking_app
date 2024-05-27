@@ -1,5 +1,5 @@
 import { IndexType, PhotoObj, PhotosObj } from "./searchTypes";
-import { Dispatch, SetStateAction, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 
 import { BiAddToQueue, BiQuestionMark, BiTrash } from "react-icons/bi";
 
@@ -9,15 +9,14 @@ interface Props {
   myPhoto: PhotoObj;
 }
 
-interface Image {
+/* interface Image {
   name: string;
   localUrl: string;
   url?: string;
   isDbImageRemoved?: boolean;
-}
+} */
 
 function ImageInput({ index, setMyPhotos, myPhoto }: Props) {
-  const [image, setImage] = useState<Image>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -36,8 +35,6 @@ function ImageInput({ index, setMyPhotos, myPhoto }: Props) {
 
   function deletePhoto() {
     setMyPhotos((currentState) => {
-      
-
       const newState = { ...currentState };
       newState[`image_${index}`].name = "";
       newState[`image_${index}`].localUrl = "";

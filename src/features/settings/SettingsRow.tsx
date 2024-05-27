@@ -6,11 +6,11 @@ interface Props extends ChildrenProp {
 
 function SettingsRow({ children, title }: Props) {
   return (
-    <div className="space-y-1 border-b">
-      <h1 className=" text-2xl font-semibold ">
+    <div className="mb-4 space-y-2 border-b py-2">
+      <h1 className=" text-2xl font-semibold  ">
         {title || "Title does not exist"}
       </h1>
-      <div>{children}</div>
+      <div className="space-y-0">{children}</div>
     </div>
   );
 }

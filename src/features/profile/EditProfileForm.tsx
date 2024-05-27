@@ -1,45 +1,49 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useUpdateProfile } from "./useUpdateProfile";
 import { UpdateProfileData } from "../../types/UpdateProfileData";
+import { useUpdateProfile } from "./useUpdateProfile";
+import { DataToUpdate, EditProfileObj, PhotoObj } from "./profileTypes";
+import { prepareDataToDispatch } from "./prepareProfileDataToDispatch";
 
 import FormRow from "../../ui/FormRow";
 import ModalFormTemplate from "../../ui/ModalFormTemplate";
-import { DataToUpdate } from "./profileTypes";
+import EditProfileFormPhotos from "./EditProfileFormPhotos";
 
 function EditProfileForm({ dataToUpdate }: DataToUpdate) {
   const { register, handleSubmit } = useForm<UpdateProfileData>({
     defaultValues: dataToUpdate,
   });
 
+  const [bgc_pic, set_bgc_pic] = useState<PhotoObj>({
+    url: dataToUpdate.bgc_pic,
+    localUrl: null,
+    inputValue: null,
+    isPhotoEddited: false,
+    name: "",
+  });
+  const [profile_pic, set_profile_pic] = useState<PhotoObj>({
+    url: dataToUpdate.profile_pic,
+    localUrl: null,
+    inputValue: null,
+    isPhotoEddited: false,
+    name: "",
+  });
+
   const { updateProfile, isPending } = useUpdateProfile();
 
   function onSubmit(formData: UpdateProfileData) {
-    console.log(formData);
+    const editProfileObj: EditProfileObj = prepareDataToDispatch({
+      dataToUpdate,
+      formData,
+      bgc_pic,
+      profile_pic,
+    });
 
-    let newObj = {} as UpdateProfileData;
-
-    if (formData.name !== dataToUpdate.name) {
-      newObj.name = formData.name;
-    }
-    if (formData.last_name !== dataToUpdate.last_name) {
-      newObj.last_name = formData.last_name;
-    }
-    if (formData.bio !== dataToUpdate.bio) {
-      newObj.bio = formData.bio;
-    }
-    if (formData.profile_pic !== dataToUpdate.profile_pic) {
-      newObj.profile_pic = formData.profile_pic;
-    }
-    if (formData.bgc_pic !== dataToUpdate.bgc_pic) {
-      newObj.bgc_pic = formData.bgc_pic;
-    }
-
-    if (Object.keys(newObj).length === 0) {
+    if (Object.keys(editProfileObj).length === 0) {
       alert("Edit at least one thing to update");
       return;
     }
-
-    updateProfile(newObj);
+    updateProfile(editProfileObj);
   }
 
   return (
@@ -49,41 +53,41 @@ function EditProfileForm({ dataToUpdate }: DataToUpdate) {
       onSubmit={handleSubmit(onSubmit)}
       buttonDisabled={isPending}
     >
-      <FormRow>
-        <input
-          type="text"
-          id="name"
-          placeholder="Enter your name..."
-          {...register("name")}
-        />
-        <label htmlFor="name">Name</label>
-      </FormRow>
-      <FormRow>
-        <input
-          type="text"
-          id="last_name"
-          placeholder="Enter your last name..."
-          {...register("last_name")}
-        />
-        <label htmlFor="last-name">Last Name</label>
-      </FormRow>
-      <FormRow>
-        <input
-          type="text"
-          id="name"
-          placeholder="Tell us about yourself..."
-          {...register("bio")}
-        />
-        <label htmlFor="name">Bio</label>
-      </FormRow>
-      <FormRow>
-        <input type="text" id="profile_pic" {...register("profile_pic")} />
-        <label htmlFor="profile_pic">Profile picture</label>
-      </FormRow>
-      <FormRow>
-        <input type="text" id="bgc_pic" {...register("bgc_pic")} />
-        <label htmlFor="bgc_pic">Bg picture</label>
-      </FormRow>
+      <EditProfileFormPhotos
+        bgc_pic={bgc_pic}
+        profile_pic={profile_pic}
+        set_bgc_pic={set_bgc_pic}
+        set_profile_pic={set_profile_pic}
+      />
+      <div className="-mt-8 md:-mt-12">
+        <FormRow>
+          <input
+            type="text"
+            id="name"
+            placeholder="Enter your name..."
+            {...register("name")}
+          />
+          <label htmlFor="name">Name</label>
+        </FormRow>
+        <FormRow>
+          <input
+            type="text"
+            id="last_name"
+            placeholder="Enter your last name..."
+            {...register("last_name")}
+          />
+          <label htmlFor="last_name">Last Name</label>
+        </FormRow>
+        <FormRow>
+          <input
+            type="text"
+            id="bio"
+            placeholder="Tell us about yourself..."
+            {...register("bio")}
+          />
+          <label htmlFor="bio">Bio</label>
+        </FormRow>
+      </div>
     </ModalFormTemplate>
   );
 }

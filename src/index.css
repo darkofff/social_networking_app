@@ -18,10 +18,12 @@
 }
 
 .form-row > input:focus + label {
-  color: #f59e0b;
+  color: #22c55e;
 }
+
 .form-row > textarea:focus + label {
-  color: #f59e0b;
+  color: #22c55e;
+  /* rgb(34 197 94) */
 }
 
 body {

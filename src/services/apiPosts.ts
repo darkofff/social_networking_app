@@ -25,6 +25,25 @@ export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
 
   return { data, currentPage: pageParam, nextPage: pageParam + 1 };
 }
+export async function getInfiniteUserPosts({
+  pageParam,
+  currentUsername,
+}: {
+  pageParam: number;
+  currentUsername: string;
+}) {
+  console.log(currentUsername);
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("username", currentUsername)
+    .order("post_id", { ascending: false })
+    .range(5 * (pageParam - 1), 5 * pageParam - 1);
+
+  if (error) throw new Error("Couldn't fetch posts");
+
+  return { data, currentPage: pageParam, nextPage: pageParam + 1 };
+}
 
 export async function getPostAuthor(username: string) {
   let { data, error } = await supabase
@@ -42,8 +61,15 @@ interface IsPostLikedProp {
   post_id: number;
   username: string;
 }
-export async function isPostLiked({ post_id, username }: IsPostLikedProp) {
-  console.log(post_id, username);
+export async function getLikeInfo({ post_id, username }: IsPostLikedProp) {
+  const { data: dataLikes, error: likeError } = await supabase
+    .from("posts")
+    .select("likes")
+    .eq("post_id", post_id);
+
+  const likesNumber = dataLikes?.at(0)?.likes;
+
+  if (likeError) throw new Error("Couldn't fetch likes");
 
   const { data, error } = await supabase
     .from("likes")
@@ -53,7 +79,9 @@ export async function isPostLiked({ post_id, username }: IsPostLikedProp) {
 
   if (error) throw new Error("Couldn't fetch likes");
 
-  return data.length > 0;
+  // const
+
+  return { isPostLiked: data.length > 0, likesNumber };
 }
 export async function likeAction({
   post_id,
@@ -61,14 +89,35 @@ export async function likeAction({
   isPostLiked,
   user_id,
 }: LikeAction) {
-  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa");
   if (!isPostLiked) {
-    const { data, error: incrementError } = await supabase.rpc(
-      "increment_score",
-      {
-        id: post_id,
-      },
-    );
+    const { data, error: insertError } = await supabase
+      .from("likes")
+      .insert({ post_id, user_id, username: currentUsername });
+
+    if (insertError)
+      throw new Error("Couldn't connect a post to a user liking");
+
+    const { error: incrementError } = await supabase.rpc("increment_score", {
+      id: post_id,
+    });
     if (incrementError) throw new Error("Couldn't like post");
+
+    return { currentUsername, post_id };
+  }
+  if (isPostLiked) {
+    //isPostLiked
+    const { data, error: deleteError } = await supabase
+      .from("likes")
+      .delete()
+      .eq("post_id", post_id);
+
+    if (deleteError) throw new Error("Couldn't remove a like");
+
+    const { error: decrementError } = await supabase.rpc("decrease_score", {
+      id: post_id,
+    });
+    if (decrementError) throw new Error("Couldn't unlike post");
+
+    return { currentUsername, post_id };
   }
 }

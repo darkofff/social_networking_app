@@ -10,7 +10,6 @@ export function useRegisterAccount() {
   const navigate = useNavigate();
 
   const user_id = data?.id;
-  console.log(user_id);
   const { mutate: registerAccount, isPending } = useMutation({
     mutationFn: (data: RegisterData) =>
       registerAccountApi({ user_id, ...data }),

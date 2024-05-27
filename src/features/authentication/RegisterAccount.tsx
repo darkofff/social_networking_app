@@ -9,13 +9,7 @@ function RegisterAccount() {
   const { register, handleSubmit } = useForm<RegisterData>();
   const { registerAccount, isPending } = useRegisterAccount();
 
-  console.log("--------");
-  console.log("register");
-  console.log("--------");
-
   function onSubmit(data: RegisterData) {
-    console.log(data);
-
     registerAccount(data);
   }
 

@@ -1,32 +1,46 @@
+import { EditProfileObj } from "../features/profile/profileTypes";
 import { PhotoKeys, SwipeProfileData } from "../features/search/searchTypes";
-import { UpdateProfileData } from "../types/UpdateProfileData";
 import { supabase } from "./supabaseClient";
 
 /* 
   For managing user data but not auth
 */
 
-interface Data extends UpdateProfileData {
-  user_id: string;
-}
-interface DataOptional extends UpdateProfileData {
-  user_id?: string;
-}
-
-export async function updateProfileData(formData: Data) {
-  const user_id = formData.user_id;
-  const updateObj: DataOptional = formData;
-  delete updateObj.user_id;
-
-  const { data, error } = await supabase
+export async function updateProfileData(editProfileObj: EditProfileObj) {
+  const { error: userUpdateError } = await supabase
     .from("users")
-    .update(updateObj)
-    .eq("user_id", user_id)
+    .update(editProfileObj.profileData)
+    .eq("user_id", editProfileObj.user_id)
     .select();
 
-  if (error) throw new Error(error.message);
+  if (userUpdateError) throw new Error("Failed to update user's info");
 
-  return data;
+  if (
+    editProfileObj?.bucketData?.bgc_name !== undefined &&
+    editProfileObj?.bucketData?.bgc_file !== undefined
+  ) {
+    const { error: errorBgc } = await supabase.storage
+      .from("bgc_pics")
+      .upload(
+        editProfileObj.bucketData.bgc_name,
+        editProfileObj.bucketData.bgc_file,
+      );
+    if (errorBgc) throw new Error("Couldn't upload background image");
+  }
+  if (
+    editProfileObj?.bucketData?.profile_name !== undefined &&
+    editProfileObj?.bucketData?.profile_file !== undefined
+  ) {
+    const { error: errorProfile } = await supabase.storage
+      .from("profile_pics")
+      .upload(
+        editProfileObj.bucketData.profile_name,
+        editProfileObj.bucketData.profile_file,
+      );
+    if (errorProfile) throw new Error("Couldn't upload profile image");
+  }
+
+  return true;
 }
 
 export async function getProfileData() {
@@ -53,7 +67,7 @@ export async function updateSwipeData(swipeProfileData: SwipeProfileData) {
     throw new Error("Could not create profile");
   }
 
-  // 2. If update successful upload photo
+  // 2. If update was successful upload photo
 
   Object.keys(swipeProfileData.imageNameObj).forEach(async (key) => {
     const name = swipeProfileData.imageNameObj[`${key}` as PhotoKeys] as string;

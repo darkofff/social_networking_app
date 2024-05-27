@@ -14,13 +14,25 @@ function Button({
   callback,
   style = "default",
 }: ButtonType) {
+  if (style === "underline")
+    return (
+      <button
+        disabled={disabled}
+        type={type}
+        onClick={callback}
+        className="w-32 border-b border-green-500/50 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/5 dark:border-green-500 dark:text-neutral-300 "
+      >
+        {children}
+      </button>
+    );
+
   if (style === "empty")
     return (
       <button
         disabled={disabled}
         type={type}
         onClick={callback}
-        className="border border-green-700"
+        className="w-32 rounded-full border-2 border-green-700 bg-green-200/10 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/10 dark:border-green-500 dark:text-neutral-300 "
       >
         {children}
       </button>

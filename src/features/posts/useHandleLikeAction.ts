@@ -11,11 +11,7 @@ export function useHandleLikeAction() {
 
   const user_id = userData.id;
 
-  const {
-    mutate: likeAction,
-    isPending: isPendingLike,
-    error: likeActionError,
-  } = useMutation({
+  const { mutate: likeAction, isPending: isPendingLike } = useMutation({
     mutationFn: ({ post_id, currentUsername, isPostLiked }: LikeAction) =>
       likeActionApi({
         post_id,
@@ -23,9 +19,14 @@ export function useHandleLikeAction() {
         isPostLiked,
         user_id,
       }),
+    onSuccess(data) {
+      queryClient.invalidateQueries({
+        queryKey: ["isPostLiked", data?.post_id, data?.currentUsername],
+      });
+    },
     onError: () =>
       toast.error("There was an error while liking post. Try again later."),
   });
 
-  return { likeAction, isPendingLike, likeActionError };
+  return { likeAction, isPendingLike };
 }

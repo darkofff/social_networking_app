@@ -7,37 +7,10 @@ Inside <FormRow> order of items have to be preserved. Input first then label
 */
 
 interface Props extends ChildrenProp {
-  type?: string;
+  comment?: boolean; // styled for textarea for posting comments
 }
 
-function FormRow({ children, type }: Props) {
-  if (type === "file")
-    return (
-      <div
-        className="
-        
-        form-row
-        flex
-        flex-col-reverse
-        
-        rounded-md
-        border
-        border-neutral-200
-        
-        [&>input]:p-1
-        [&>input]:px-3
-        [&>input]:pt-3
-        [&>input]:outline-none
-        [&>label]:px-3 
-        [&>label]:py-1
-        [&>label]:font-semibold
-        [&>label]:text-neutral-400
-  "
-      >
-        {children}
-      </div>
-    );
-
+function FormRow({ children, comment = false }: Props) {
   return (
     <div
       /* form-row is in index.css. It had to be separate class because tailwind's peer doesn't work with [&>input]: */
@@ -58,11 +31,9 @@ function FormRow({ children, type }: Props) {
         [&>input]:outline-none  
         [&>input]:focus-within:outline
         [&>input]:focus-within:ring-2 
-         
+        [&>input]:focus-within:ring-green-500
         
-        [&>input]:focus-within:ring-amber-500
         [&>label]:absolute [&>label]:top-0        
-        
         [&>label]:w-[96%] 
         [&>label]:rounded-t-md 
         [&>label]:bg-neutral-50 
@@ -80,24 +51,26 @@ function FormRow({ children, type }: Props) {
         [&>select]:outline-none
         [&>select]:focus-within:outline
         [&>select]:focus-within:ring-2 
-        [&>select]:focus-within:ring-amber-500
+        [&>select]:focus-within:ring-green-500
 
+        [&>textarea]:m-0
         [&>textarea]:min-h-36
         [&>textarea]:resize-y
         [&>textarea]:rounded-md
         [&>textarea]:bg-neutral-50
         [&>textarea]:px-3
-        [&>textarea]:pt-7 
-        [&>textarea]:text-lg
+        [&>textarea]:pt-7
+        [&>textarea]:text-lg 
         [&>textarea]:font-normal
         [&>textarea]:outline-none
         [&>textarea]:focus-within:outline
         [&>textarea]:focus-within:ring-2
-        [&>textarea]:focus-within:ring-amber-500
+        [&>textarea]:focus-within:ring-green-500
         dark:[&>textarea]:bg-neutral-700
+        dark:[&>textarea]:ring-0
         
 
-      
+      ${!!comment && `[&>label]:bg-white dark:[&>label]:bg-neutral-500  dark:[&>label]:text-neutral-200 [&>textarea]:bg-white dark:[&>textarea]:bg-neutral-500 `}
         `}
     >
       {children}
