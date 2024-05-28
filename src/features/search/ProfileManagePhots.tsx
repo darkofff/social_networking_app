@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import PhotoActions from "./PhotoActions";
 import { ImageNameObj, PhotoKeys } from "./searchTypes";
 
@@ -14,6 +15,28 @@ function ProfileManagePhots({
   arrayOfIndexes,
   setIndex,
 }: Props) {
+  const [isNextPhoto, setIsNextPhoto] = useState<boolean>(false);
+  const [isPrevPhoto, setIsPrevPhoto] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (index !== null) {
+      if (arrayOfIndexes[index + 1]) {
+        setIsNextPhoto(true);
+        console.log("there is next photo");
+      } else {
+        setIsNextPhoto(false);
+        console.log("There is no next photo");
+      }
+      if (arrayOfIndexes[index - 1]) {
+        setIsPrevPhoto(true);
+        console.log("there is prev photo");
+      } else {
+        setIsPrevPhoto(false);
+        console.log("There is no prev photo");
+      }
+    }
+  }, [index, arrayOfIndexes]);
+
   function prevPhoto() {
     if (index === null) return;
     if (arrayOfIndexes[index - 1]) {
@@ -26,6 +49,7 @@ function ProfileManagePhots({
       setIndex((index) => (index as number) + 1);
     }
   }
+
   return (
     <div
       style={{
@@ -36,7 +60,12 @@ function ProfileManagePhots({
       }}
       className="relative max-h-[80%] min-h-[550px]  rounded-lg bg-cover bg-center"
     >
-      <PhotoActions nextPhoto={nextPhoto} prevPhoto={prevPhoto} />
+      <PhotoActions
+        nextPhoto={nextPhoto}
+        prevPhoto={prevPhoto}
+        isNextPhoto={isNextPhoto}
+        isPrevPhoto={isPrevPhoto}
+      />
     </div>
   );
 }

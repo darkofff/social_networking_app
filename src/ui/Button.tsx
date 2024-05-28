@@ -32,7 +32,7 @@ function Button({
         disabled={disabled}
         type={type}
         onClick={callback}
-        className="w-32 rounded-full border-2 border-green-700 bg-green-200/10 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/10 dark:border-green-500 dark:text-neutral-300 "
+        className="w-32 rounded-full border-2 border-green-700 bg-green-200/10 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/30 dark:border-green-500 dark:text-neutral-300 "
       >
         {children}
       </button>

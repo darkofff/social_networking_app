@@ -15,7 +15,6 @@ export async function loginWithPassword({ email, password }: LoginData) {
   });
 
   if (error) {
-    console.error(error.message);
     throw new Error("Couldn't log in");
   }
 

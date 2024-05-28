@@ -1,5 +1,6 @@
 import { ChangeEvent } from "react";
 import { useTheme } from "../../contexts/ThemeContext";
+import Select from "../../ui/Select";
 
 enum ThemeTypes {
   DARK = "dark",
@@ -16,7 +17,7 @@ function themeSetting() {
   }
 
   return (
-    <div className="flex flex-wrap gap-x-2 sm:gap-8">
+    <Select className="">
       <label htmlFor="theme">
         <span className="font-semibold">Apperance: </span> device theme
       </label>
@@ -25,7 +26,7 @@ function themeSetting() {
         <option value="light">Light mode</option>
         <option value="dark">Dark mode</option>
       </select>
-    </div>
+    </Select>
   );
 }
 

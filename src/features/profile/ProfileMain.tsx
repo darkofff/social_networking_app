@@ -3,9 +3,13 @@ import ProfileInfo from "./ProfileInfo";
 import useProfileData from "./useProfileData";
 
 function ProfileMain() {
-  const { data: profileData, isPending: isPendingProfileData } =
-    useProfileData();
+  const {
+    data: profileData,
+    isPending: isPendingProfileData,
+    isSpectatorMode,
+  } = useProfileData();
 
+  console.log(profileData);
   if (isPendingProfileData) return <h1>Big Loading Spinner...</h1>;
 
   return (
@@ -13,6 +17,7 @@ function ProfileMain() {
       <ProfileInfo
         profileData={profileData}
         isPendingProfileData={isPendingProfileData}
+        isSpectatorMode={isSpectatorMode}
       />
       <DisplayUserPosts
         currentUsername={profileData.username}

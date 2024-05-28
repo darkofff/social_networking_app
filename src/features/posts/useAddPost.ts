@@ -14,7 +14,7 @@ function useAddPost() {
     mutationFn: (postData: PostData) => addPostApi(postData),
     onSuccess: () => {
       toast.success("Post successfuly added!");
-      queryClient.invalidateQueries({ queryKey: ["posts"] });
+      queryClient.invalidateQueries({ queryKey: ["postsNews"] });
     },
   });
 

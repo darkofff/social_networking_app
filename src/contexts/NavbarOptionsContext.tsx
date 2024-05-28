@@ -7,12 +7,14 @@ interface ContextProp {
   isNavbarShown: boolean;
   isScreenWidthMedium?: boolean;
   setIsNavbarShown: React.Dispatch<React.SetStateAction<boolean>>;
+  isArrowBackShown: boolean;
 }
 
 const navbarOptionsContext = createContext<ContextProp | null>(null);
 
 function NavbarOptionsProvider({ children }: ChildrenProp) {
   const [isNavbarShown, setIsNavbarShown] = useState<boolean>(true);
+  const [isArrowBackShown, setIsArrowBackShown] = useState<boolean>(false);
   const { screenWidth } = useScreenWidth();
   const location = useLocation();
 
@@ -20,11 +22,19 @@ function NavbarOptionsProvider({ children }: ChildrenProp) {
     if (location.pathname === "/search/menu") setIsNavbarShown(false);
     else if (location.pathname.startsWith("/search/") && screenWidth < 768) {
       setIsNavbarShown(false);
-    } else setIsNavbarShown(true);
+    } else if (location.pathname.startsWith("/friends/") && screenWidth < 768) {
+      setIsNavbarShown(false);
+      setIsArrowBackShown(false);
+    } else {
+      setIsNavbarShown(true);
+      setIsArrowBackShown(true);
+    }
   }, [location.pathname, screenWidth]);
 
   return (
-    <navbarOptionsContext.Provider value={{ isNavbarShown, setIsNavbarShown }}>
+    <navbarOptionsContext.Provider
+      value={{ isNavbarShown, setIsNavbarShown, isArrowBackShown }}
+    >
       {children}
     </navbarOptionsContext.Provider>
   );

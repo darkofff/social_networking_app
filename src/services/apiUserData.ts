@@ -43,8 +43,19 @@ export async function updateProfileData(editProfileObj: EditProfileObj) {
   return true;
 }
 
-export async function getProfileData() {
-  let { data, error } = await supabase.from("users").select("*");
+export async function getProfileData(username: string | null) {
+  if (username === null) {
+    let { data, error } = await supabase.from("users").select("*");
+    if (error) throw new Error(error.message);
+    const profileData = data?.at(0);
+
+    return profileData;
+  }
+
+  let { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("username", username);
   if (error) throw new Error(error.message);
   const profileData = data?.at(0);
 
@@ -52,8 +63,6 @@ export async function getProfileData() {
 }
 
 export async function updateSwipeData(swipeProfileData: SwipeProfileData) {
-  console.log(swipeProfileData);
-
   // 1.Update user table
 
   const { data, error: dataError } = await supabase
@@ -63,7 +72,6 @@ export async function updateSwipeData(swipeProfileData: SwipeProfileData) {
     .select();
 
   if (dataError) {
-    console.error(dataError.message);
     throw new Error("Could not create profile");
   }
 
@@ -73,16 +81,24 @@ export async function updateSwipeData(swipeProfileData: SwipeProfileData) {
     const name = swipeProfileData.imageNameObj[`${key}` as PhotoKeys] as string;
     const path = swipeProfileData.photosToUpload[`${key}` as PhotoKeys] as File;
 
-    console.log(name, path);
-
     const { error: errorImage } = await supabase.storage
       .from("swipe_images")
       .upload(name, path);
     if (errorImage) {
-      console.error(errorImage.message);
       throw new Error("Could not create profile");
     }
   });
 
   return data;
+}
+
+export async function getProfile({ username }: { username: string }) {
+  let { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("username", username);
+  if (error) throw new Error(error.message);
+  const profileData = data?.at(0);
+
+  return profileData;
 }

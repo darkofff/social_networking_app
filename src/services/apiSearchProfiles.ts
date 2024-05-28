@@ -2,7 +2,6 @@ import { GetUsername } from "../features/search/searchTypes";
 import { supabase } from "./supabaseClient";
 
 export async function getProfiles() {
-  console.log("im in getProfilesApi");
   let { data: profiles, error } = await supabase.from("profiles").select("*");
   if (error) throw new Error("Couldn' load users ");
 
@@ -18,7 +17,6 @@ export async function getUsername({ index, currentUserUsername }: GetUsername) {
     .range(index, index)) as any;
 
   if (error) {
-    console.error(error.message);
     throw new Error("Couldn't fetch new profile");
   }
 
@@ -27,7 +25,6 @@ export async function getUsername({ index, currentUserUsername }: GetUsername) {
   }
 
   const currentUsername = data?.at(0).username;
-  console.log(currentUsername);
 
   return { currentUsername, index };
 }

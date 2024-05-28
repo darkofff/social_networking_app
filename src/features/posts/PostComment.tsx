@@ -15,6 +15,7 @@ function PostComment({ isPostOpen }: Props) {
               <textarea
                 id="postComment"
                 placeholder="Tell us what you are thinking about..."
+                defaultValue="Nie da się jeszcze dodać komentarzy"
               ></textarea>
               <label htmlFor="postComment">
                 Currently it does absolutely nothing

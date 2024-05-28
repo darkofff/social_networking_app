@@ -40,8 +40,9 @@ function FormRow({ children, comment = false }: Props) {
         [&>label]:px-3 
         [&>label]:py-1
         [&>label]:font-semibold
-        [&>label]:text-neutral-400
+        [&>label]:text-neutral-300
         dark:[&>label]:bg-neutral-700
+        dark:[&>label]:text-neutral-400
         
         [&>select]:rounded-full
         [&>select]:px-3
@@ -67,10 +68,11 @@ function FormRow({ children, comment = false }: Props) {
         [&>textarea]:focus-within:ring-2
         [&>textarea]:focus-within:ring-green-500
         dark:[&>textarea]:bg-neutral-700
+        dark:[&>textarea]:text-neutral-300
         dark:[&>textarea]:ring-0
         
 
-      ${!!comment && `[&>label]:bg-white dark:[&>label]:bg-neutral-500  dark:[&>label]:text-neutral-200 [&>textarea]:bg-white dark:[&>textarea]:bg-neutral-500 `}
+      ${!!comment && `[&>label]:bg-white dark:[&>label]:bg-neutral-600  dark:[&>label]:text-neutral-200 [&>textarea]:bg-white dark:[&>textarea]:bg-neutral-600 dark:[&>textarea]:text-neutral-100`}
         `}
     >
       {children}

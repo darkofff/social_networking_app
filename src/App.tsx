@@ -9,7 +9,6 @@ import { NavbarOptionsProvider } from "./contexts/NavbarOptionsContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import Contacts from "./pages/Contacts";
 import Search from "./pages/Search";
 import Landing from "./pages/Landing";
 import ProtectedRoute from "./features/authentication/ProtectedRoute";
@@ -22,6 +21,9 @@ import PrepareProfiles from "./features/search/PrepareProfiles";
 import DisplayProfiles from "./features/search/DisplayProfiles";
 import SearchUserVerification from "./features/search/SearchUserVerification";
 import OutOfProfiles from "./features/search/OutOfProfiles";
+import Friends from "./pages/Friends";
+import Chat from "./features/friends/Chat";
+import FriendsList from "./features/friends/FriendsList";
 
 const queryClient = new QueryClient();
 
@@ -29,7 +31,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer theme="dark" autoClose={3000} />
-      {/* <ReactQueryDevtools buttonPosition="bottom-right" /> */}
+     {/*  <ReactQueryDevtools buttonPosition="bottom-right" /> */}
       <ThemeProvider>
         <ModalProvider>
           <BrowserRouter>
@@ -67,7 +69,10 @@ function App() {
                     element={<SearchUserVerification />}
                   />
                 </Route>
-                <Route path="contacts" element={<Contacts />} />
+                <Route element={<Friends />}>
+                  <Route path="friends" element={<FriendsList />} />
+                  <Route path="friends/:username" element={<Chat />} />
+                </Route>
                 <Route path="news" element={<News />} />
                 <Route path="profile" element={<Profile />} />
                 <Route path="settings" element={<Settings />} />
@@ -83,7 +88,3 @@ function App() {
 }
 
 export default App;
-
-/* 
-COLOR REFFERENCE
-*/

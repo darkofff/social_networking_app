@@ -10,7 +10,6 @@ export async function addPost({ content, username }: PostData) {
     .select();
 
   if (error) throw new Error("Couldn't send this post");
-  console.log(data);
   return data;
 }
 
@@ -32,7 +31,6 @@ export async function getInfiniteUserPosts({
   pageParam: number;
   currentUsername: string;
 }) {
-  console.log(currentUsername);
   const { data, error } = await supabase
     .from("posts")
     .select("*")
@@ -54,7 +52,7 @@ export async function getPostAuthor(username: string) {
   if (error) throw new Error("Couldn't fetch post user data.");
 
   const postUserData = data?.at(0) as PostUserData;
-  return postUserData;
+  return { ...postUserData, username };
 }
 
 interface IsPostLikedProp {
