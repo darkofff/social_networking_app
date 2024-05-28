@@ -40,8 +40,8 @@ function Navbar() {
       <img
         src={
           theme === "light"
-            ? "logos/logo-main.png"
-            : "logos/logo-main-darkmode.png"
+            ? "/logos/logo-main.png"
+            : "/logos/logo-main-darkmode.png"
         }
         /* src="logos/logo-main.png" */
         alt="logo"

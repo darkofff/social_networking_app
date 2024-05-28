@@ -17,8 +17,8 @@ function OutOfProfiles() {
           className="max-w-40 pb-12"
           src={
             theme === "dark"
-              ? "../../../public/logos/logo-main-darkmode.png"
-              : "../../../public/logos/logo-main.png"
+              ? "/logos/logo-main-darkmode.png"
+              : "/logos/logo-main.png"
           }
           alt="logo"
         />
