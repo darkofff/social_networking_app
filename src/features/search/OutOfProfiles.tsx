@@ -14,10 +14,11 @@ function OutOfProfiles() {
         </p>
         <img
           // src="logos/logo-main.png"
+          className="max-w-40 pb-12"
           src={
             theme === "dark"
-              ? "logos/logo-main-darkmode.png"
-              : "logos/logo-main.png"
+              ? "../../../public/logos/logo-main-darkmode.png"
+              : "../../../public/logos/logo-main.png"
           }
           alt="logo"
         />
