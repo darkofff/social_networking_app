@@ -17,9 +17,17 @@ export async function getUsername({ index, currentUserUsername }: GetUsername) {
     .order("id", { ascending: true })
     .range(index, index)) as any;
 
-  if (error) throw new Error("Couldn't fetch new profile");
+  if (error) {
+    console.error(error.message);
+    throw new Error("Couldn't fetch new profile");
+  }
 
-  const currentUsername = data.at(0).username;
+  if (data.length === 0) {
+    return { currentUsername: "", index: -1 };
+  }
+
+  const currentUsername = data?.at(0).username;
+  console.log(currentUsername);
 
   return { currentUsername, index };
 }

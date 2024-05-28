@@ -24,7 +24,7 @@ function ProfileInfo({ profileData }: Props) {
       <div className="px-2 lg:px-4">
         <div className="relative mb-1  min-h-14  sm:h-16 md:h-20 lg:h-24">
           <div
-            className=" absolute aspect-square w-28 -translate-y-1/2 rounded-full border-4 border-neutral-100 bg-lime-800 bg-cover bg-center dark:border-neutral-800 dark:shadow-md dark:shadow-neutral-100/10 sm:w-32 md:w-40 lg:w-48"
+            className=" absolute aspect-square w-28 -translate-y-1/2 rounded-full border-4 border-neutral-100 bg-neutral-300 bg-cover bg-center dark:border-neutral-800 dark:shadow-md dark:shadow-neutral-100/10 sm:w-32 md:w-40 lg:w-48"
             style={{
               backgroundImage: `url(${profile_pic ? profile_pic : "anonymous/profile_pic_anon.png"} )`,
             }}

@@ -21,6 +21,7 @@ import Profile from "./pages/Profile";
 import PrepareProfiles from "./features/search/PrepareProfiles";
 import DisplayProfiles from "./features/search/DisplayProfiles";
 import SearchUserVerification from "./features/search/SearchUserVerification";
+import OutOfProfiles from "./features/search/OutOfProfiles";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer theme="dark" autoClose={3000} />
-      <ReactQueryDevtools buttonPosition="bottom-right" />
+      {/* <ReactQueryDevtools buttonPosition="bottom-right" /> */}
       <ThemeProvider>
         <ModalProvider>
           <BrowserRouter>
@@ -56,6 +57,7 @@ function App() {
                      back to the previous profile 
                   */}
                   <Route path="search" element={<PrepareProfiles />} />
+                  <Route path="search/lastSlide" element={<OutOfProfiles />} />
                   <Route
                     path="search/:username"
                     element={<DisplayProfiles />}

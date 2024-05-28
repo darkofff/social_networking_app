@@ -78,7 +78,7 @@ function EditProfileFormPhotos({
         </div>
       </div>
       <div
-        className=" ml-2 aspect-square w-1/4 min-w-20 -translate-y-1/2  rounded-full bg-cover bg-center"
+        className=" ml-2 aspect-square w-1/4 min-w-20 -translate-y-1/2 rounded-full  bg-neutral-400 bg-cover bg-center"
         style={{
           backgroundImage: `url(${profile_pic.localUrl || profile_pic.url || "anonymous/profile_pic_anon.png"})`,
         }}

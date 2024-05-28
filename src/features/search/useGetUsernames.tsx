@@ -20,9 +20,16 @@ export function useGetUsernames() {
       getUsernameApi({ index, currentUserUsername }),
     onSuccess: (data) => {
       queryClient.removeQueries({ queryKey: ["swipeData"] });
-      navigate(`/search/${data.currentUsername}?index=${data.index}`, {
-        replace: true,
-      });
+
+      if (data.index === -1) {
+        navigate(`/search/lastSlide`, {
+          replace: true,
+        });
+      } else {
+        navigate(`/search/${data.currentUsername}?index=${data.index}`, {
+          replace: true,
+        });
+      }
     },
     onError: () => {
       toast.warn(

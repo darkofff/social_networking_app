@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-
 import { useGetSwipeProfile } from "./useGetSwipeProfile";
-
 import { ImageNameObj, PhotoKeys } from "./searchTypes";
 
 import UserActions from "./UserActions";
@@ -42,7 +40,7 @@ function DisplayProfiles() {
     };
   }, [isPending]);
 
-  if (isPending) return <p>WAIT</p>;
+  if (isPending) return <p>Loading...</p>;
 
   const { bio_swipe, name } = swipeData;
 
