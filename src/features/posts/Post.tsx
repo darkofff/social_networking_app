@@ -27,16 +27,15 @@ function Post({ content, username, likes, post_id, currentUsername }: Post) {
   let profile_pic: string = "";
 
   if (!isPending) {
-    ({ last_name, name, profile_pic } = profileData as ProfileData);
+    ({ last_name, name, profile_pic, username } = profileData as ProfileData);
   }
 
   function handleProfileClick() {
-    if (!profileData) return;
     navigateTopPage();
     if (username === currentUsername) {
-      navigate(`/profile  `);
+      navigate(`/profile`);
     } else {
-      navigate(`/profile?username=${profileData.username}`);
+      navigate(`/profile?username=${username}`);
     }
   }
 
