@@ -1,56 +1,129 @@
-function ChatContent() {
+import { useEffect, useRef } from "react";
+import { supabase } from "../../services/supabaseClient";
+import { useGetInfiniteMessages } from "./hooks/useGetInfiniteMessages";
+import MessageRow from "./MessageRow";
+
+interface Props {
+  currentUsername: string;
+  username: string;
+  conversation_id: number;
+}
+
+function ChatContent({ currentUsername, username, conversation_id }: Props) {
+  const ref = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    // dodać intersectionRef i jeśli on jest in view to nie przemieszczać
+    if (element) {
+      element.scrollTop = element.scrollHeight;
+    }
+  }, []);
+
+  const {
+    data,
+    status,
+    error,
+    topIntersectionRef,
+    fetchNextPage,
+    hasNextPage,
+  } = useGetInfiniteMessages(conversation_id);
+
+  const messages = supabase
+    .channel("custom-all-channel")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "messages" },
+      (payload) => {
+        console.log("Change received!", payload);
+      },
+    )
+    .subscribe();
+
   return (
-    <div className=" grow overflow-auto ">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Error commodi
-      autem ducimus maiores natus cum aspernatur voluptatem dolores modi, sequi
-      earum debitis non reiciendis magni? Officiis cumque aliquam eum soluta!
-      Veniam deserunt reiciendis laborum et quis quae recusandae dolorem
-      voluptate nihil neque veritatis ipsa, numquam fugiat pariatur nemo ipsum
-      sint voluptates nostrum similique voluptatibus, omnis alias aut quisquam.
-      Magnam, mollitia. Repellendus ducimus voluptate nemo at deserunt
-      recusandae, earum ad mollitia aspernatur tempore fuga, animi ut excepturi
-      nam laboriosam exercitationem eligendi quis. Pariatur qui quidem iure
-      tenetur voluptatem, reprehenderit repellat nostrum! Expedita fugiat
-      accusamus saepe beatae tempore, consectetur voluptas commodi. Minus
-      corrupti dolorem tenetur dolor corporis temporibus facere velit ab
-      aspernatur, expedita voluptatibus beatae odit ullam aperiam a quisquam
-      natus sequi. Ex animi molestiae nam maxime facilis itaque libero magni
-      minus adipisci culpa vel modi, ipsam rerum ipsa officia impedit quasi quos
-      cum? Quam minus debitis reprehenderit perspiciatis doloremque sed eum.
-      Veritatis, natus expedita laborum aperiam harum eius! Cum quam enim velit
-      commodi delectus doloribus amet modi, optio eaque, excepturi ut atque
-      fugit vero! Odit libero debitis porro laboriosam, quisquam sed. Dolore
-      eius assumenda, et sint rerum aliquam cupiditate dolorem, incidunt
-      corporis reprehenderit omnis doloribus ducimus. Atque dignissimos
-      excepturi debitis. In sint voluptatibus corrupti cum id eum nisi quia
-      eaque? Alias? Autem omnis incidunt tempore officiis quisquam dignissimos
-      sint consequuntur aliquid quibusdam. Fugiat, et tenetur? Adipisci,
-      ratione. Omnis, commodi deserunt, excepturi modi, nisi iste ex totam fuga
-      aut obcaecati nostrum porro. Harum iusto nemo culpa quisquam recusandae
-      cumque est, voluptatem quidem ea accusamus. Voluptatibus architecto,
-      corporis eligendi quis nam natus enim consectetur voluptate nisi ullam
-      quae quo cumque expedita distinctio dolorem! Commodi consectetur
-      architecto iure cumque ab voluptate deserunt ex aperiam incidunt fugiat
-      possimus quam quaerat ad ipsa nam asperiores totam, tenetur nesciunt
-      accusamus dignissimos! Aliquam earum itaque molestiae commodi assumenda?
-      Maiores maxime cupiditate ipsam quisquam, voluptas esse dolorum impedit?
-      Quibusdam voluptas minus ratione necessitatibus, id doloremque sequi,
-      aliquam eveniet nemo ut autem fuga accusantium dolores recusandae totam,
-      facilis porro nam. Quibusdam saepe, dolor assumenda nesciunt nostrum,
-      debitis iste perferendis optio ratione magnam ea, aliquid porro eos.
-      Quidem non, sed eligendi asperiores tempora a quisquam ad expedita nihil
-      nostrum quaerat fuga. Sunt eius maxime assumenda officia aliquam unde id
-      est inventore ullam excepturi error architecto itaque illo rem suscipit
-      doloribus, neque natus vitae iure ipsam dolore ea quisquam. Aliquid,
-      officia non. Itaque aut laudantium fugiat non perspiciatis laborum
-      distinctio est sunt, quo porro iste, nostrum veritatis laboriosam officia
-      dolores harum, id consequuntur veniam sit? Similique temporibus autem
-      nostrum quas quaerat? Suscipit. Quos quod mollitia eius voluptas
-      perferendis nulla odit cum fuga iure. Quis, laborum facere. Modi
-      reiciendis maiores eius earum expedita esse sint, similique quos enim
-      eaque, repellendus dolore incidunt ipsa.
+    <div
+      className=" flex grow flex-col justify-end overflow-auto border border-red-500"
+      ref={ref}
+    >
+      <div ref={topIntersectionRef}>TOP intersection ref</div>
+      <div className=" h-fit border-2 border-dashed border-blue-900">
+        <div className=" border">
+          {status === "pending" ? (
+            <p>Loading...</p>
+          ) : status === "error" ? (
+            <p>{error?.message}</p>
+          ) : (
+            data?.pages.map((page) => (
+              <div className="flex  flex-col-reverse" key={page.currentPage}>
+                {page.messages?.map((message) => (
+                  <MessageRow
+                    content={message.content}
+                    key={message.message_id}
+                    isCurrentUserSender={
+                      currentUsername === message.sender_username
+                    }
+                  />
+                ))}
+              </div>
+            ))
+          )}
+        </div>
+        <div>Observer</div>
+      </div>
     </div>
   );
 }
 
 export default ChatContent;
+
+/* 
+
+{
+    "pages": [
+        {
+            "messages": [
+                {
+                    "message_id": 11,
+                    "created_at": "2024-05-30T07:51:31.123922+00:00",
+                    "conversation_id": 1,
+                    "sender_username": "oryginal_gangsta_1",
+                    "content": "Hey Jude!"
+                },
+                {
+                    "message_id": 10,
+                    "created_at": "2024-05-30T07:51:17.464747+00:00",
+                    "conversation_id": 1,
+                    "sender_username": "oryginal_gangsta_1",
+                    "content": "kappa"
+                },
+                {
+                    "message_id": 9,
+                    "created_at": "2024-05-30T07:49:50.76729+00:00",
+                    "conversation_id": 1,
+                    "sender_username": "oryginal_gangsta_1",
+                    "content": "create"
+                },
+                {
+                    "message_id": 8,
+                    "created_at": "2024-05-30T07:43:06.880888+00:00",
+                    "conversation_id": 1,
+                    "sender_username": "oryginal_gangsta_1",
+                    "content": "dsaqdasdsa"
+                },
+                {
+                    "message_id": 3,
+                    "created_at": "2024-05-29T17:24:38.780062+00:00",
+                    "conversation_id": 1,
+                    "sender_username": "notehi9022",
+                    "content": "What's uppp"
+                }
+            ],
+            "currentPage": 1,
+            "nextPage": 2
+        }
+    ],
+    "pageParams": [
+        1
+    ]
+}
+*/

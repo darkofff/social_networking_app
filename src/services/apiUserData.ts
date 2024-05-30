@@ -1,5 +1,6 @@
 import { EditProfileObj } from "../features/profile/profileTypes";
 import { PhotoKeys, SwipeProfileData } from "../features/search/searchTypes";
+import { ProfileData } from "../types/ProfileData";
 import { supabase } from "./supabaseClient";
 
 /* 
@@ -7,7 +8,7 @@ import { supabase } from "./supabaseClient";
 */
 
 export async function updateProfileData(editProfileObj: EditProfileObj) {
-  const { error: userUpdateError } = await supabase
+  const { data, error: userUpdateError } = await supabase
     .from("users")
     .update(editProfileObj.profileData)
     .eq("user_id", editProfileObj.user_id)
@@ -43,25 +44,6 @@ export async function updateProfileData(editProfileObj: EditProfileObj) {
   return true;
 }
 
-export async function getProfileData(username: string | null) {
-  if (username === null) {
-    let { data, error } = await supabase.from("users").select("*");
-    if (error) throw new Error(error.message);
-    const profileData = data?.at(0);
-
-    return profileData;
-  }
-
-  let { data, error } = await supabase
-    .from("profiles")
-    .select("*")
-    .eq("username", username);
-  if (error) throw new Error(error.message);
-  const profileData = data?.at(0);
-
-  return profileData;
-}
-
 export async function updateSwipeData(swipeProfileData: SwipeProfileData) {
   // 1.Update user table
 
@@ -92,13 +74,53 @@ export async function updateSwipeData(swipeProfileData: SwipeProfileData) {
   return data;
 }
 
-export async function getProfile({ username }: { username: string }) {
+// FETCHING PROFILES DATA
+
+export async function getProfileByUsername({ username }: { username: string }) {
+  let { data, error } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("username", username);
+  if (error) throw new Error(error.message);
+  const profileData = (data?.at(0) as ProfileData) || [];
+
+  return profileData;
+}
+
+export async function getProfileData(username: string | null) {
+  if (username === null) {
+    let { data, error } = await supabase.from("users").select("*");
+    if (error) throw new Error(error.message);
+    const profileData = data?.at(0);
+
+    return profileData;
+  }
+
   let { data, error } = await supabase
     .from("profiles")
     .select("*")
     .eq("username", username);
   if (error) throw new Error(error.message);
   const profileData = data?.at(0);
+
+  return profileData;
+}
+
+export async function getCurrentUserProfile(user_id: string) {
+  let { data, error } = await supabase
+    .from("users")
+    .select("*")
+    .eq("user_id", user_id);
+
+  if (error) throw new Error(error.message);
+  const profileData = data?.at(0);
+
+  // Set current session username
+  const username = profileData.username;
+  const { error: usernameError } = await supabase.rpc("set_current_username", {
+    username: username,
+  });
+  if (usernameError) throw new Error("Couldn't set new session username");
 
   return profileData;
 }

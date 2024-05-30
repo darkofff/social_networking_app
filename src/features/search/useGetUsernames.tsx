@@ -1,15 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { getUsername as getUsernameApi } from "../../services/apiSearchProfiles";
 import { GetUsername } from "./searchTypes";
-import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export function useGetUsernames() {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
-  const [currentUsername, setCurrentUsername] = useState();
 
   const {
     mutate: getUsername,

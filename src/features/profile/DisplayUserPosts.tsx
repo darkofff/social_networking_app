@@ -7,7 +7,6 @@ interface Props {
 }
 
 function DisplayUserPosts({ currentUsername, isPendingProfileData }: Props) {
-  
   const { data, status, error, intersectionRef, hasNextPage } =
     useInfiniteFetchUserPosts(currentUsername);
 

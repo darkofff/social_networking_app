@@ -1,16 +1,16 @@
-
-
+import { useProfileData } from "../../contexts/ProfileDataContext";
 import Post from "../posts/Post";
 import { useInfiniteFetchNewsPosts } from "./useInfiniteFetchNewsPosts";
-import useProfileData from "../profile/useProfileData";
+// import { useProfileData } from "../profile/useProfileData";
 
 function DisplayPosts() {
   const { data, status, error, intersectionRef, hasNextPage } =
     useInfiniteFetchNewsPosts();
 
   const {
-    data: { username: currentUsername },
+    profileData: { username: currentUsername },
   } = useProfileData();
+
   return (
     <div>
       {status === "pending" ? (

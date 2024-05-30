@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { getProfileData } from "../../services/apiUserData";
 import { useSearchParams } from "react-router-dom";
 
-
-
 function useProfileData() {
   const [searchParams] = useSearchParams();
 
@@ -24,4 +22,4 @@ function useProfileData() {
   return { data, username: data.username, error, isPending, isSpectatorMode };
 }
 
-export default useProfileData;
+export { useProfileData };

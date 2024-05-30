@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom";
 import Main from "../ui/Main";
+import { Outlet } from "react-router-dom";
 
 function Friends() {
   return (

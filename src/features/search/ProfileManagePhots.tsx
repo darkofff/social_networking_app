@@ -22,17 +22,13 @@ function ProfileManagePhots({
     if (index !== null) {
       if (arrayOfIndexes[index + 1]) {
         setIsNextPhoto(true);
-        console.log("there is next photo");
       } else {
         setIsNextPhoto(false);
-        console.log("There is no next photo");
       }
       if (arrayOfIndexes[index - 1]) {
         setIsPrevPhoto(true);
-        console.log("there is prev photo");
       } else {
         setIsPrevPhoto(false);
-        console.log("There is no prev photo");
       }
     }
   }, [index, arrayOfIndexes]);

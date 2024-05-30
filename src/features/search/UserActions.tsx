@@ -1,11 +1,11 @@
 import { BiHeart, BiHome, BiRightArrowAlt } from "react-icons/bi";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useGetUsernames } from "./useGetUsernames";
-import useProfileData from "../profile/useProfileData";
-import { BsHeartFill } from "react-icons/bs";
+import { useProfileData } from "../../contexts/ProfileDataContext";
 
 function UserActions() {
-  const { data: profileData } = useProfileData();
+  const { profileData } = useProfileData();
+
   const { getUsername, isPending, data } = useGetUsernames();
   const [searchParams] = useSearchParams();
 

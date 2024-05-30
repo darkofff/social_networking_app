@@ -5,7 +5,7 @@ import { useInView } from "react-intersection-observer";
 
 export function useInfiniteFetchUserPosts(currentUsername: string) {
   const { data, status, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["postsUserNews"],
+    queryKey: ["postsUserNews", currentUsername],
     queryFn: ({ pageParam }) =>
       getInfiniteUserPosts({ pageParam, currentUsername }),
     initialPageParam: 1,

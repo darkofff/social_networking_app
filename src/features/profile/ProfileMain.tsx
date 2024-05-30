@@ -1,30 +1,47 @@
+import { useSearchParams } from "react-router-dom";
 import DisplayUserPosts from "./DisplayUserPosts";
 import ProfileInfo from "./ProfileInfo";
-import useProfileData from "./useProfileData";
+import { useProfileData } from "../../contexts/ProfileDataContext";
+import { useGetProfileByUsername } from "../../hooks/useGetProfileByUsername";
 
 function ProfileMain() {
-  const {
-    data: profileData,
-    isPending: isPendingProfileData,
-    isSpectatorMode,
-  } = useProfileData();
+  const [searchParams] = useSearchParams();
+  const usernameParams = searchParams.get("username");
 
-  console.log(profileData);
-  if (isPendingProfileData) return <h1>Big Loading Spinner...</h1>;
+  const { profileData: userProfileData } = useProfileData();
+  const isSpectatorMode = usernameParams === null ? false : true;
 
-  return (
-    <>
-      <ProfileInfo
-        profileData={profileData}
-        isPendingProfileData={isPendingProfileData}
-        isSpectatorMode={isSpectatorMode}
-      />
-      <DisplayUserPosts
-        currentUsername={profileData.username}
-        isPendingProfileData={isPendingProfileData}
-      />
-    </>
-  );
+  const { profileData, isPending: isPendingProfileData } =
+    useGetProfileByUsername(usernameParams || "");
+
+  if (!isSpectatorMode)
+    return (
+      <>
+        <ProfileInfo
+          profileData={userProfileData}
+          isPendingProfileData={false}
+          isSpectatorMode={false}
+        />
+        <DisplayUserPosts
+          currentUsername={userProfileData.username}
+          isPendingProfileData={false}
+        />
+      </>
+    );
+  if (isSpectatorMode && usernameParams !== null)
+    return (
+      <>
+        <ProfileInfo
+          profileData={profileData}
+          isPendingProfileData={isPendingProfileData}
+          isSpectatorMode={true}
+        />
+        <DisplayUserPosts
+          currentUsername={usernameParams}
+          isPendingProfileData={isPendingProfileData}
+        />
+      </>
+    );
 }
 
 export default ProfileMain;

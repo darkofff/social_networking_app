@@ -1,5 +1,5 @@
 import { IndexType, PhotosObj } from "./searchTypes";
-import {  useState } from "react";
+import { useState } from "react";
 
 import { H2 } from "../../ui/Typography";
 import ModalFormTemplate from "../../ui/ModalFormTemplate";
@@ -10,17 +10,12 @@ import { useUpdateSwipeData } from "./useUpdateSwiptData";
 
 interface Props {
   profileData: any;
-  isPending: boolean;
   is_profile_created: boolean;
 }
 
 const MAX_NUMBER_OF_PHOTOS = 6;
 
-function FinishEditProfileForm({
-  profileData,
-  isPending,
-  is_profile_created,
-}: Props) {
+function FinishEditProfileForm({ profileData, is_profile_created }: Props) {
   const { useMutateSwipeData, isPending: isPendingDispatch } =
     useUpdateSwipeData();
 

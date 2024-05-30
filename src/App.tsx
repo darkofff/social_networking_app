@@ -24,6 +24,7 @@ import OutOfProfiles from "./features/search/OutOfProfiles";
 import Friends from "./pages/Friends";
 import Chat from "./features/friends/Chat";
 import FriendsList from "./features/friends/FriendsList";
+import { ProfileDataProvider } from "./contexts/ProfileDataContext";
 
 const queryClient = new QueryClient();
 
@@ -31,7 +32,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer theme="dark" autoClose={3000} />
-     {/*  <ReactQueryDevtools buttonPosition="bottom-right" /> */}
+      {/*  <ReactQueryDevtools buttonPosition="bottom-right" /> */}
       <ThemeProvider>
         <ModalProvider>
           <BrowserRouter>
@@ -42,12 +43,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <NavbarOptionsProvider>
-                      <AppLayout />
+                      <ProfileDataProvider>
+                        <AppLayout />
+                      </ProfileDataProvider>
                     </NavbarOptionsProvider>
                   </ProtectedRoute>
                 }
               >
-                <Route path="" element={<Search />}>
+                <Route /* if problems uncomment path="" */ element={<Search />}>
                   {
                     // If thing don't work out go back here
                     /* <Route path="search" element={<DisplayProfiles />} /> */

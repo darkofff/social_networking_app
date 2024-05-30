@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { useProfile } from "../../hooks/useProfile";
+import { useGetProfileByUsername } from "../../hooks/useGetProfileByUsername";
+import { ProfileData } from "../../types/ProfileData";
 
 interface Props {
   username: string;
 }
 function FriendItem({ username }: Props) {
-  const { profile, isPending } = useProfile(username);
+  const { profileData, isPending } = useGetProfileByUsername(username);
   const navigate = useNavigate();
 
   let name, last_name, profile_pic;
-  if (!isPending) ({ name, last_name, profile_pic } = profile);
+  if (!isPending)
+    ({ name, last_name, profile_pic } = profileData as ProfileData);
 
   function openChat() {
     navigate(`/friends/${username}`);

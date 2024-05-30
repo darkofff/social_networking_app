@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { usePostAuthor } from "./usePostAuthor";
-import { PostUserData } from "../../types/postUserData";
 import PostActions from "./PostActions";
 import { useNavigate } from "react-router-dom";
+import { useGetProfileByUsername } from "../../hooks/useGetProfileByUsername";
+import { ProfileData } from "../../types/ProfileData";
+import { navigateTopPage } from "../../utilities/navigateTopPage";
 
 interface Post {
   content: string;
@@ -12,21 +12,32 @@ interface Post {
   currentUsername: string;
 }
 
-function Post({ content, username, likes, post_id, currentUsername }: Post) {
-  const [isPostExpanded, setIsPostExpanded] = useState(() => content);
-  const navigate = useNavigate();
-  const { postUserData, isPending } = usePostAuthor(username);
+interface Props {
+  profileData: ProfileData | undefined;
+  isPending: boolean;
+}
 
-  // if (isPending) return <p>Loading...</p>;
-  let last_name: string;
-  let name: string;
-  let profile_pic: string;
+function Post({ content, username, likes, post_id, currentUsername }: Post) {
+  const navigate = useNavigate();
+
+  const { profileData, isPending }: Props = useGetProfileByUsername(username);
+
+  let last_name: string = "";
+  let name: string = "";
+  let profile_pic: string = "";
+
   if (!isPending) {
-    ({ last_name, name, profile_pic } = postUserData as PostUserData);
+    ({ last_name, name, profile_pic } = profileData as ProfileData);
   }
 
   function handleProfileClick() {
-    navigate(`/profile?username=${postUserData.username}`);
+    if (!profileData) return;
+    navigateTopPage();
+    if (username === currentUsername) {
+      navigate(`/profile  `);
+    } else {
+      navigate(`/profile?username=${profileData.username}`);
+    }
   }
 
   return (

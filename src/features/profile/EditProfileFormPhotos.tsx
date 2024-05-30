@@ -26,7 +26,6 @@ function EditProfileFormPhotos({
         newState.name = file[0].name;
         newState.localUrl = URL.createObjectURL(file[0]);
         newState.inputValue = file[0];
-        console.log(newState);
 
         return newState;
       });

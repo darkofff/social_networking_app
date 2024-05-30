@@ -7,12 +7,18 @@ interface Props {
   isSpectatorMode: boolean;
 }
 
-function ProfileInfo({ profileData, isSpectatorMode }: Props) {
+function ProfileInfo({
+  profileData,
+  isPendingProfileData,
+  isSpectatorMode,
+}: Props) {
   const [nameEdit, isNameEdit] = useState<boolean>(false);
   const [lastNameEdit, isLastNameEdit] = useState<boolean>(false);
 
   const { bgc_pic, profile_pic, username, name, last_name, bio } = profileData;
   const dataToUpdate = { bgc_pic, profile_pic, username, name, last_name, bio };
+
+  if (isPendingProfileData) return <h1>Big Loading Spinner...</h1>;
 
   return (
     <div className="border-b-2 pb-2">

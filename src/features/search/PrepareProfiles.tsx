@@ -1,11 +1,13 @@
 import { useEffect } from "react";
 import { useGetUsernames } from "./useGetUsernames";
-import useProfileData from "../profile/useProfileData";
+import { useProfileData } from "../../contexts/ProfileDataContext";
+// import {useProfileData} from "../profile/useProfileData";
 
 function PrepareProfiles() {
-  const { data: profileData } = useProfileData();
+  // const { data: profileData } = useProfileData();
+  const { profileData } = useProfileData();
 
-  const { getUsername, isPending, data } = useGetUsernames();
+  const { getUsername } = useGetUsernames();
 
   useEffect(() => {
     if (profileData) getUsername({ index: 0, username: profileData.username });

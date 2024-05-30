@@ -10,10 +10,9 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   is_profile_created: boolean;
   profileData: any;
-  isPending: boolean;
 }
 
-function ConfirmScreen({ is_profile_created, profileData, isPending }: Props) {
+function ConfirmScreen({ is_profile_created, profileData }: Props) {
   const navigate = useNavigate();
 
   return createPortal(
@@ -48,7 +47,6 @@ function ConfirmScreen({ is_profile_created, profileData, isPending }: Props) {
             <Modal.Window name="search-profile">
               <FinishEditProfileForm
                 profileData={profileData}
-                isPending={isPending}
                 is_profile_created={is_profile_created}
               />
             </Modal.Window>
