@@ -20,7 +20,7 @@ interface Props {
 function Post({ content, username, likes, post_id, currentUsername }: Post) {
   const navigate = useNavigate();
 
-  const { profileData, isPending }: Props = useGetProfileByUsername(username);
+  const { profileData, isPending } = useGetProfileByUsername(username);
 
   let last_name: string = "";
   let name: string = "";

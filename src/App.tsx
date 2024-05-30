@@ -32,7 +32,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer theme="dark" autoClose={3000} />
-      {/*  <ReactQueryDevtools buttonPosition="bottom-right" /> */}
+      {/* <ReactQueryDevtools buttonPosition="bottom-right" /> */}
       <ThemeProvider>
         <ModalProvider>
           <BrowserRouter>
