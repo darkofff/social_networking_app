@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useGetInfiniteMessages } from "./hooks/useGetInfiniteMessages";
 import ChatDisplayMessages from "./ChatDisplayMessages";
+import { useInView } from "react-intersection-observer";
+import Button from "../../ui/Button";
 
 interface FunctionInterface {
   contentRef: React.MutableRefObject<HTMLDivElement | null>;
@@ -28,11 +30,12 @@ interface Props {
   username: string;
   conversation_id: number;
   profile_pic: string;
+  isInputExpanded: boolean;
 }
 
 function ChatContent({
   currentUsername,
-  username,
+  isInputExpanded,
   conversation_id,
   profile_pic,
 }: Props) {
@@ -52,6 +55,8 @@ function ChatContent({
     topIntersectionRef,
     fetchNextPage,
   } = useGetInfiniteMessages(conversation_id);
+
+  const { ref: bottomIntersectionRef, inView } = useInView();
 
   useEffect(() => {
     if (contentRef.current && ref.current) {
@@ -90,8 +95,22 @@ function ChatContent({
     isContentHeightGreaterThanChat,
   ]);
 
+  useEffect(() => {
+    // If container is scrolled to the bottom and user expands input then container is scrolled to hte bottom
+    if (isInputExpanded && inView) {
+      scrollToBottom();
+    }
+  }, [isInputExpanded]);
+
+  function scrollToBottom() {
+    bottomRef.current?.scrollIntoView();
+  }
+
   return (
-    <div ref={ref} className=" flex grow flex-col  overflow-y-auto  ">
+    <div
+      ref={ref}
+      className="relative flex grow flex-col overflow-y-auto  dark:border-x dark:bg-neutral-700  "
+    >
       <div className="z-50 w-full text-2xl" ref={topIntersectionRef}>
         {hasNextPage ? "" : <p>There are no more messages</p>}
       </div>
@@ -105,20 +124,17 @@ function ChatContent({
         conversation_id={conversation_id}
         profile_pic={profile_pic}
       />
+      {!inView && (
+        <div className="sticky bottom-2 left-0 flex justify-center rounded-lg  px-2 py-1 ">
+          <Button style="empty" callback={scrollToBottom}>
+            Scroll to the bottom
+          </Button>
+        </div>
+      )}
       <div className="h-1" ref={bottomRef}></div>
+      <div className="h-1" ref={bottomIntersectionRef}></div>
     </div>
   );
 }
 
 export default ChatContent;
-
-/*  const messages = supabase
-    .channel("custom-all-channel")
-    .on(
-      "postgres_changes",
-      { event: "*", schema: "public", table: "messages" },
-      (payload) => {
-        console.log("Change received!", payload);
-      },
-    )
-    .subscribe(); */

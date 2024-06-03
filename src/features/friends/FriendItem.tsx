@@ -19,7 +19,7 @@ function FriendItem({ username }: Props) {
 
   return (
     <li className=" w-full cursor-pointer" onClick={openChat}>
-      <div className="flex w-full gap-2 rounded-lg bg-neutral-200/30 px-2 py-1 transition-all hover:bg-neutral-200/70">
+      <div className="flex w-full gap-2 rounded-lg bg-neutral-200/30 px-2 py-1 transition-all hover:bg-neutral-200/70 dark:bg-neutral-600 dark:text-neutral-100">
         {isPending ? (
           "Loading..."
         ) : (

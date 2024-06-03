@@ -16,7 +16,7 @@ function ChatTop({ name, last_name, profile_pic, username }: Props) {
   }
 
   return (
-    <div className="flex items-center gap-1 border  bg-neutral-200 px-2 py-1">
+    <div className="flex items-center gap-1 rounded-t-lg border  bg-neutral-200 px-2 py-1 dark:border-neutral-600 dark:bg-neutral-800">
       <div
         className="mr-4 flex h-12 w-12 items-center justify-center [&>*]:hover:scale-105"
         onClick={goBackToFriends}

@@ -3,6 +3,8 @@ interface ButtonType {
   type?: "button" | "submit" | "reset" | undefined;
   disabled?: boolean;
   callback?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 
   style?: "default" | "underline" | "empty";
 }
@@ -12,6 +14,8 @@ function Button({
   type = "button",
   disabled,
   callback,
+  onFocus,
+  onBlur,
   style = "default",
 }: ButtonType) {
   if (style === "underline")
@@ -20,6 +24,8 @@ function Button({
         disabled={disabled}
         type={type}
         onClick={callback}
+        onFocus={onFocus}
+        onBlur={onBlur}
         className="w-32 border-b border-green-500/50 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/5 dark:border-green-500 dark:text-neutral-300 "
       >
         {children}
@@ -32,7 +38,7 @@ function Button({
         disabled={disabled}
         type={type}
         onClick={callback}
-        className="w-32 rounded-full border-2 border-green-700 bg-green-200/10 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/30 dark:border-green-500 dark:text-neutral-300 "
+        className="min-w-32 rounded-full border-2 border-green-700 bg-green-200/10 px-2 py-1 font-semibold text-green-950 transition-all hover:bg-green-300/30 dark:border-green-500 dark:text-neutral-300 "
       >
         {children}
       </button>

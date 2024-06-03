@@ -11,7 +11,7 @@ function MessageRow({ content, isCurrentUserSender, profile_pic }: Props) {
     >
       {isCurrentUserSender ? (
         <div className="flex w-4/5 items-center justify-end gap-x-2   sm:w-2/3">
-          <div className=" flex  min-h-10 items-center justify-end rounded-lg border bg-neutral-200/50  p-1 px-2 ">
+          <div className=" flex  min-h-10 items-center justify-end rounded-lg border bg-green-700/70 p-1 px-2  text-green-50  dark:border-neutral-700 dark:bg-green-500/30 ">
             <div>{content}</div>
           </div>
         </div>
@@ -25,7 +25,7 @@ function MessageRow({ content, isCurrentUserSender, profile_pic }: Props) {
               }}
             ></div>
           </div>
-          <div className=" flex min-h-10 items-center rounded-lg  border bg-neutral-200/50 p-1 px-2">
+          <div className=" flex min-h-10 items-center rounded-lg border  bg-neutral-200/50 p-1 px-2 dark:border-neutral-700 dark:bg-neutral-600">
             <div>{content}</div>
           </div>
         </div>
