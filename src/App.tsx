@@ -1,6 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools/production";
 
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ModalProvider } from "./contexts/ModalOpenContext";
@@ -8,6 +7,9 @@ import { NavbarOptionsProvider } from "./contexts/NavbarOptionsContext";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { ProfileDataProvider } from "./contexts/ProfileDataContext";
+import { FriendsProvider } from "./contexts/FriendsContext";
 
 import Search from "./pages/Search";
 import Landing from "./pages/Landing";
@@ -24,8 +26,6 @@ import OutOfProfiles from "./features/search/OutOfProfiles";
 import Friends from "./pages/Friends";
 import Chat from "./features/friends/Chat";
 import FriendsList from "./features/friends/FriendsList";
-import { ProfileDataProvider } from "./contexts/ProfileDataContext";
-import { FriendsProvider } from "./contexts/FriendsContext";
 
 const queryClient = new QueryClient();
 
@@ -33,7 +33,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer theme="dark" autoClose={3000} />
-      <ReactQueryDevtools buttonPosition="bottom-right" />
+      {/* <ReactQueryDevtools buttonPosition="bottom-right" /> */}
       <ThemeProvider>
         <ModalProvider>
           <BrowserRouter>
