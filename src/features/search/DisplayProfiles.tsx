@@ -62,7 +62,7 @@ function DisplayProfiles() {
           </div>
 
           <div className="text-3xl font-semibold">{name}</div>
-          <pre className="text-wrap font-LibreFranklin text-base font-normal text-black">
+          <pre className="text-wrap font-LibreFranklin text-base font-normal ">
             {bio_swipe}
           </pre>
         </div>

@@ -1,11 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import { BiLeftArrow } from "react-icons/bi";
-import { useTheme } from "../../contexts/ThemeContext";
 
 function OutOfProfiles() {
   const navigate = useNavigate();
-  const { theme } = useTheme();
+
   return (
     <div className="flex h-dvh items-center justify-center ">
       <div className="flex min-h-[80vh] max-w-[500px] flex-col items-center justify-center gap-4 rounded-lg bg-neutral-200 dark:bg-neutral-600">
@@ -13,13 +12,8 @@ function OutOfProfiles() {
           STRETCHER__________________________________________________________________________________________________________________________________________________________________
         </p>
         <img
-          // src="logos/logo-main.png"
           className="max-w-40 pb-12"
-          src={
-            theme === "dark"
-              ? "/logos/logo-main-darkmode.png"
-              : "/logos/logo-main.png"
-          }
+          src={"/logos/logo-main.png"}
           alt="logo"
         />
         <div className="text-center">

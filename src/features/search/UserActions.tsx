@@ -47,9 +47,9 @@ function UserActions({ username }: Props) {
   }
 
   return (
-    <div className=" flex w-full justify-between gap-4 rounded-lg border border-neutral-400 bg-neutral-300/70 p-1">
+    <div className=" flex w-full justify-between gap-4 rounded-lg border border-neutral-400 bg-neutral-300/70 p-1 dark:border-neutral-700 dark:bg-neutral-700">
       <button
-        className="flex max-w-36 items-center  justify-center rounded-lg bg-neutral-400/40 p-2 transition-all hover:bg-green-500/40"
+        className="flex max-w-36 items-center  justify-center rounded-lg bg-neutral-400/40 p-2 transition-all hover:bg-green-500/40 dark:bg-neutral-600 hover:dark:bg-neutral-500"
         onClick={likeUser}
         disabled={isPendingFriendRequest || isPendingUsernamesData}
       >
@@ -59,14 +59,14 @@ function UserActions({ username }: Props) {
         />
       </button>
       <button
-        className="flex  max-w-36 justify-center  rounded-lg bg-neutral-400/40 p-2 transition-all hover:bg-green-500/40"
+        className="flex  max-w-36 justify-center  rounded-lg bg-neutral-400/40 p-2 transition-all hover:bg-green-500/40 dark:bg-neutral-600 hover:dark:bg-neutral-500"
         onClick={() => navigate("/search/menu")}
         disabled={isPendingFriendRequest || isPendingUsernamesData}
       >
         <BiHome className="h-10 w-10" />
       </button>
       <button
-        className=" flex max-w-36 justify-center  rounded-lg bg-neutral-400/40 p-2 transition-all hover:bg-green-500/40"
+        className=" flex max-w-36 justify-center  rounded-lg bg-neutral-400/40 p-2 transition-all hover:bg-green-500/40 dark:bg-neutral-600 hover:dark:bg-neutral-500"
         onClick={handleNextUser}
         disabled={isPendingFriendRequest || isPendingUsernamesData}
       >
