@@ -44,14 +44,6 @@ export async function sendMessage({
       content: content,
     })
     .select();
-  /* 
-const { data, error } = await supabase
-  .from('messages')
-  .insert([
-    { some_column: 'someValue', other_column: 'otherValue' },
-  ])
-  .select()
-*/
 
   if (error) throw new Error(error.message);
   return data;
@@ -68,23 +60,10 @@ export async function getMessages({ conversation_id, pageParam }: GetMessages) {
     .select("*")
     .eq("conversation_id", conversation_id)
     .order("message_id", { ascending: false })
-    .range(10 * (pageParam - 1), 10 * pageParam - 1);
+    .range(8 * (pageParam - 1), 8 * pageParam - 1);
   if (error) throw new Error("Couldn't fetch messages");
 
-  console.log(messages);
+  // console.log(messages);
 
   return { messages, currentPage: pageParam, nextPage: pageParam + 1 };
 }
-/* 
-export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
-  const { data, error } = await supabase
-    .from("posts")
-    .select("*")
-    .order("post_id", { ascending: false })
-    .range(5 * (pageParam - 1), 5 * pageParam - 1);
-
-  if (error) throw new Error("Couldn't fetch posts");
-
-  return { data, currentPage: pageParam, nextPage: pageParam + 1 };
-}
-*/

@@ -75,4 +75,5 @@ export interface GetUsername {
   username?: string;
   currentUserUsername?: string;
   index: number;
+  friendsNameList?: string[];
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGetSwipeProfile } from "./useGetSwipeProfile";
-import { ImageNameObj, PhotoKeys } from "./searchTypes";
+import { ImageNameObj, PhotoKeys } from "./types/searchTypes";
 
 import UserActions from "./UserActions";
 import ProfileManagePhots from "./ProfileManagePhots";
@@ -13,6 +13,7 @@ function DisplayProfiles() {
     Zmianę parametrów url wykrywa useGetSwipeProfile 
     i na tej podstawie pobiera informacje o użytkowniku 
   */
+
   const { swipeData, error, isPending } = useGetSwipeProfile();
 
   const [index, setIndex] = useState<number | null>(null);
@@ -66,7 +67,7 @@ function DisplayProfiles() {
           </pre>
         </div>
         <div className="sticky bottom-0 ">
-          <UserActions />
+          <UserActions username={swipeData.username} />
         </div>
       </div>
     </div>
@@ -74,13 +75,3 @@ function DisplayProfiles() {
 }
 
 export default DisplayProfiles;
-{
-  /* <div className="space-y-1 rounded-lg border bg-neutral-100 p-1">
-            <div className="rounded-lg border bg-neutral-50 p-1 py-4  text-3xl font-semibold">
-              {name}
-            </div>
-            <pre className=" rounded-lg border bg-neutral-50 p-1 py-4 font-LibreFranklin text-base font-normal text-black">
-              {bio_swipe}
-            </pre>
-          </div> */
-}

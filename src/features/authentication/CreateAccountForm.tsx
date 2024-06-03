@@ -11,7 +11,7 @@ function CreateAccountForm() {
   const { register, handleSubmit, reset } = useForm<CreateAccData>();
 
   const { signup, isPending } = useCreateAccount();
-  
+
   async function onSubmit(formData: CreateAccData) {
     signup(formData, {
       onSuccess: () => {
@@ -32,11 +32,17 @@ function CreateAccountForm() {
           id="email"
           {...register("email")}
           className="w-full"
+          placeholder="Enter you email..."
         />
         <label htmlFor="email">Email:</label>
       </FormRow>
       <FormRow>
-        <input type="password" {...register("password")} className="w-full" />
+        <input
+          type="password"
+          {...register("password")}
+          className="w-full"
+          placeholder="Enter password..."
+        />
         <label htmlFor="password">Password:</label>
       </FormRow>
     </ModalFormTemplate>

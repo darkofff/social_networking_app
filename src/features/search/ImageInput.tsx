@@ -1,4 +1,4 @@
-import { IndexType, PhotoObj, PhotosObj } from "./searchTypes";
+import { IndexType, PhotoObj, PhotosObj } from "./types/searchTypes";
 import { Dispatch, SetStateAction, useRef } from "react";
 
 import { BiAddToQueue, BiQuestionMark, BiTrash } from "react-icons/bi";

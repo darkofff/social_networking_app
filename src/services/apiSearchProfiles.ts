@@ -1,4 +1,4 @@
-import { GetUsername } from "../features/search/searchTypes";
+import { GetUsername } from "../features/search/types/searchTypes";
 import { supabase } from "./supabaseClient";
 
 export async function getProfiles() {
@@ -8,20 +8,39 @@ export async function getProfiles() {
   return profiles;
 }
 
-export async function getUsername({ index, currentUserUsername }: GetUsername) {
-  const { data, error } = (await supabase
-    .from("profiles")
-    .select("username")
-    .not("username", "eq", currentUserUsername) // Exclude users own profile
-    .order("id", { ascending: true })
-    .range(index, index)) as any;
+export async function getUsername({
+  index,
+  currentUserUsername,
+  friendsNameList,
+}: GetUsername) {
+  let loopBreaker = false;
+  let data, error;
+  while (!loopBreaker) {
+    // 2.Fetch next swipe username
+    ({ data, error } = (await supabase
+      .from("profiles")
+      .select("username")
+      .not("username", "eq", currentUserUsername) // Exclude users own profile
+      .order("id", { ascending: true })
+      .range(index, index)) as any);
 
-  if (error) {
-    throw new Error("Couldn't fetch new profile");
-  }
+    if (error) {
+      throw new Error("Couldn't fetch new profile");
+    }
 
-  if (data.length === 0) {
-    return { currentUsername: "", index: -1 };
+    if (data.length === 0) {
+      return { currentUsername: "", index: -1 };
+    }
+
+    // So if here then there is data
+    // Code below check if fetched user is a friend
+    // If so fetch once again else break loop
+
+    if (friendsNameList?.includes(data.at(0).username)) {
+      index++;
+    } else {
+      loopBreaker = true;
+    }
   }
 
   const currentUsername = data?.at(0).username;
@@ -44,62 +63,4 @@ export async function getProfile({ username }: GetProfileProps) {
   return data.at(0);
 }
 
-// IDEAS ON HOW TO SOLVE THIS DATA FETCHING
 
-/* 
-    get total number of records
-    select one at random 
-    save both values 
-    fetch profile of selected index
-    prefetch next one 
-    
-  */
-
-/* 
-  get total number of records
-  start with first one
-  fetch 10 usernames    
-    - excluse username = username
-  set 1 username as searchParam
-  based on search params fetch user data 
-
-  const totalNumberOfUsers()
-  fetchNames()
-
-*/
-
-/* 
----fetching---
-  #rename it later
-  useFetchData() {
-    const totalNumberOfProfiles :state
-    const tenProfileUsernamesArray :state
-    const currentIndex :state
-    const howManyFetches - same as number of collected usernames /10
-
-    function nextProfile(){
-      current index+=1
-      if index = 10{
-        fetchNewData
-      }
-    }
-
-    return {currentProfileUsername}
-  }
-
----DisplayProfiles---
-  onClick(()=>nextProfile())
-
-  nextProfile(){
-    setSearchParams({name: currentProfileUsername.name})
-  }
-
-  profileData = [] :state
-
-  useEffect(()=>{
-    mutateProfileData
-  },[searchParams])
-
-
-
-*/

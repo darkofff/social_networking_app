@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useModalOpenContext } from "../../contexts/ModalOpenContext";
 import { updateSwipeData } from "../../services/apiUserData";
-import { SwipeProfileData } from "./searchTypes";
+import { SwipeProfileData } from "./types/searchTypes";
 import { toast } from "react-toastify";
 
 export function useUpdateSwipeData() {
@@ -14,7 +14,7 @@ export function useUpdateSwipeData() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["profileData"] });
       closeModal();
-      toast.success("uploading succeded");
+      toast.success("Uploading succeded");
     },
   });
 

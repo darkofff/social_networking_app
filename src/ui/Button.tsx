@@ -4,7 +4,7 @@ interface ButtonType {
   disabled?: boolean;
   callback?: () => void;
 
-  style?: string;
+  style?: "default" | "underline" | "empty";
 }
 
 function Button({

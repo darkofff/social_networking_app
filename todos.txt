@@ -12,18 +12,8 @@
 
 
 
-# Na teraz:
-    - Lajki
-        - zrobić osobne pobieranie
-            - ile jest lików
-            - czy current user też polikował
-                - czyli by trzeba stworzyć w profiles listę wszystkich 
-                  postów, które user polajkował
-            - invalidate lajki jak się kliknie like
-        - dodać funkcje, która usuwa lajki (proste)
-        - 
-
-
-
-    - dodać posty do profilu
-    - dodać żeby dało się zajrzeć na czyjś profil
+# Do zrobienia
+    - W search nie wyświetlają się osoby, których status znajomości jest niezaakceptowany
+    - 
+    -
+    - Form validation

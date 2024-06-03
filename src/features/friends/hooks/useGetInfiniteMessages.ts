@@ -4,7 +4,7 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
 export function useGetInfiniteMessages(conversation_id: number) {
-  console.log(conversation_id);
+  // console.log("useGetInfiniteMessages");
   const { data, status, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["messages", conversation_id],
     queryFn: ({ pageParam = 1 }) => getMessages({ conversation_id, pageParam }),
@@ -35,25 +35,3 @@ export function useGetInfiniteMessages(conversation_id: number) {
     hasNextPage,
   };
 }
-/* 
-export function useInfiniteFetchNewsPosts() {
-  const { data, status, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ["postsNews"],
-    queryFn: getInfinitePosts,
-    initialPageParam: 1,
-    getNextPageParam: (lastPage) => {
-      if (lastPage.data.length === 0) return undefined;
-      return lastPage.nextPage;
-    },
-    refetchInterval: 1200000,
-  });
-
-  const { ref: intersectionRef, inView } = useInView();
-
-  useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
-
-  return { data, status, error, intersectionRef, fetchNextPage, hasNextPage };
-}
-*/

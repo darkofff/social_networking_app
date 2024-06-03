@@ -1,5 +1,5 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
 import { getProfile } from "../../services/apiSearchProfiles";
 
 interface RouteParams {
@@ -7,7 +7,6 @@ interface RouteParams {
 }
 
 function useGetSwipeProfile() {
-  const queryClient = useQueryClient();
   const { username } = useParams();
 
   const {

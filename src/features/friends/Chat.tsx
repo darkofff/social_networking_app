@@ -46,6 +46,7 @@ function Chat() {
         username={aliasUsername}
         currentUsername={currentUsername}
         conversation_id={conversation_id}
+        profile_pic={profile_pic}
       />
 
       <ChatInput

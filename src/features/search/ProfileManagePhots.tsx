@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PhotoActions from "./PhotoActions";
-import { ImageNameObj, PhotoKeys } from "./searchTypes";
+import { ImageNameObj, PhotoKeys } from "./types/searchTypes";
 
 interface Props {
   index: number | null;

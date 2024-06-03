@@ -15,8 +15,9 @@ export function useRegisterAccount() {
       registerAccountApi({ user_id, ...data }),
     onSuccess: () => {
       toast.success("success");
-      queryClient.invalidateQueries({ queryKey: ["user"] });
-      navigate("/profile", { replace: true });
+      queryClient.invalidateQueries({ queryKey: ["user"] }).then(() => {
+        navigate("/profile", { replace: true });
+      });
     },
     onError: () => {
       toast.error("Something went wrong");

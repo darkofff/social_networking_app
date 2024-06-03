@@ -72,7 +72,7 @@ function FormRow({ children, comment = false }: Props) {
         dark:[&>textarea]:ring-0
         
 
-      ${!!comment && `[&>label]:bg-white dark:[&>label]:bg-neutral-600  dark:[&>label]:text-neutral-200 [&>textarea]:bg-white dark:[&>textarea]:bg-neutral-600 dark:[&>textarea]:text-neutral-100`}
+      ${!!comment && `[&>label]:bg-white dark:[&>label]:bg-neutral-500  dark:[&>label]:text-neutral-200 [&>textarea]:bg-white dark:[&>textarea]:bg-neutral-500 dark:[&>textarea]:text-neutral-100`}
         `}
     >
       {children}

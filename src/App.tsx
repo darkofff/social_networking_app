@@ -25,6 +25,7 @@ import Friends from "./pages/Friends";
 import Chat from "./features/friends/Chat";
 import FriendsList from "./features/friends/FriendsList";
 import { ProfileDataProvider } from "./contexts/ProfileDataContext";
+import { FriendsProvider } from "./contexts/FriendsContext";
 
 const queryClient = new QueryClient();
 
@@ -44,7 +45,9 @@ function App() {
                   <ProtectedRoute>
                     <NavbarOptionsProvider>
                       <ProfileDataProvider>
-                        <AppLayout />
+                        <FriendsProvider>
+                          <AppLayout />
+                        </FriendsProvider>
                       </ProfileDataProvider>
                     </NavbarOptionsProvider>
                   </ProtectedRoute>

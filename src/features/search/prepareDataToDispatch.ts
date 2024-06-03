@@ -1,4 +1,4 @@
-import { PhotoKeys, PhotosObj, SwipeProfileData } from "./searchTypes";
+import { PhotoKeys, PhotosObj, SwipeProfileData } from "./types/searchTypes";
 
 interface BioObj {
   bio: string;

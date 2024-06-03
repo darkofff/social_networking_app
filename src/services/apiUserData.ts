@@ -1,5 +1,8 @@
 import { EditProfileObj } from "../features/profile/profileTypes";
-import { PhotoKeys, SwipeProfileData } from "../features/search/searchTypes";
+import {
+  PhotoKeys,
+  SwipeProfileData,
+} from "../features/search/types/searchTypes";
 import { ProfileData } from "../types/ProfileData";
 import { supabase } from "./supabaseClient";
 
@@ -82,7 +85,7 @@ export async function getProfileByUsername({ username }: { username: string }) {
     .select("*")
     .eq("username", username);
   if (error) throw new Error(error.message);
-  const profileData = (data?.at(0) as ProfileData) || [];
+  const profileData: ProfileData = (data?.at(0) as ProfileData) || [];
 
   return profileData;
 }

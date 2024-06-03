@@ -1,4 +1,4 @@
-import { IndexType, PhotosObj } from "./searchTypes";
+import { IndexType, PhotosObj } from "./types/searchTypes";
 import { useState } from "react";
 
 import { H2 } from "../../ui/Typography";

@@ -1,12 +1,9 @@
+import { useFriendsNames } from "../../contexts/FriendsContext";
 import FriendItem from "./FriendItem";
-import useFriendsNameList from "./hooks/useFriendsNameList";
-
-interface Props {
-  friendsNameList: string[];
-}
 
 function FriendsList() {
-  const { friendsNameList, isPending, error } = useFriendsNameList();
+  const { friendsNameList, isPending } = useFriendsNames();
+
   return (
     <>
       <h1 className="py-2 text-2xl">Friends</h1>

@@ -23,7 +23,7 @@ function ProfileInfo({
   return (
     <div className="border-b-2 pb-2">
       <div
-        className="aspect-[21/9] bg-cyan-50 bg-cover bg-center"
+        className="aspect-[21/9] rounded-b-lg bg-neutral-300 bg-cover bg-center"
         style={{
           backgroundImage: `url(${bgc_pic ? bgc_pic : "anonymous/bgc_pic_anon.png"} )`,
         }}
@@ -52,7 +52,7 @@ function ProfileInfo({
             <div className="text-md ">@{username}</div>
           </div>
           <div className="text-xl font-medium">{bio}</div>
-          <div>Jakieś info. Liczba postów, znajomych czy coś takiego</div>
+          {/* <div>Jakieś info. Liczba postów, znajomych czy coś takiego</div> */}
         </div>
       </div>
     </div>
