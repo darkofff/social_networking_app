@@ -85,7 +85,7 @@ export async function getProfileByUsername({ username }: { username: string }) {
     .select("*")
     .eq("username", username);
   if (error) throw new Error(error.message);
-  const profileData: ProfileData = (data?.at(0) as ProfileData) || [];
+  const profileData = (data?.at(0) as ProfileData) || [];
 
   return profileData;
 }
