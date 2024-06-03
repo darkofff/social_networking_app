@@ -109,7 +109,7 @@ function ChatContent({
   return (
     <div
       ref={ref}
-      className="relative flex grow flex-col overflow-y-auto  dark:border-x dark:bg-neutral-700  "
+      className="relative flex grow flex-col overflow-y-auto dark:border-x dark:border-neutral-600 dark:bg-neutral-700  "
     >
       <div className="z-50 w-full text-2xl" ref={topIntersectionRef}>
         {hasNextPage ? "" : <p>There are no more messages</p>}
