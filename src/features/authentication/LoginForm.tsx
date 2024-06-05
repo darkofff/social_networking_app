@@ -30,7 +30,7 @@ function LoginForm() {
         <input
           type="email"
           id="email"
-          placeholder="Enter you email adress..."
+          placeholder="Enter you email address..."
           {...register("email")}
           className="w-full"
         />
@@ -50,35 +50,3 @@ function LoginForm() {
 }
 
 export default LoginForm;
-
-/* 
-<div className="mx-auto flex h-full flex-col justify-center space-y-20   ">
-      <H1>Login </H1>
-      <form onSubmit={handleSubmit(onSubmit)} className="">
-        <FormRow>
-          <input
-            type="email"
-            id="email"
-            placeholder="Enter you email adress..."
-            {...register("email")}
-            className="w-full"
-          />
-          <label htmlFor="email">Email</label>
-        </FormRow>
-        <FormRow>
-          <input
-            type="password"
-            {...register("password")}
-            className="w-full"
-            placeholder="Enter your password..."
-          />
-          <label htmlFor="password">Password</label>
-        </FormRow>
-        <div>
-          <Button type="submit" disabled={false}>
-            Login
-          </Button>
-        </div>
-      </form>
-    </div>
-*/

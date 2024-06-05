@@ -1,7 +1,7 @@
 import { InfiniteData } from "@tanstack/react-query";
 import MessageRow from "./MessageRow";
 import { supabase } from "../../services/supabaseClient";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   status: "error" | "pending" | "success";
@@ -20,6 +20,8 @@ interface Props {
   currentUsername: string;
   conversation_id: number;
   profile_pic: string;
+  bottomRef: React.MutableRefObject<HTMLDivElement | null>;
+  inView: boolean;
 }
 
 interface NewMessage {
@@ -38,6 +40,8 @@ function ChatDisplayMessages({
   currentUsername,
   conversation_id,
   profile_pic,
+  bottomRef,
+  inView,
 }: Props) {
   const [newMessages, setNewMessages] = useState<NewMessage[]>([]);
 
@@ -47,13 +51,17 @@ function ChatDisplayMessages({
       "postgres_changes",
       { event: "INSERT", schema: "public", table: "messages" },
       (payload) => {
-        console.log("Change received!", payload.new);
         const newObj = payload.new as NewMessage;
-        if (conversation_id === newObj.conversation_id)
+        if (conversation_id === newObj.conversation_id) {
           setNewMessages((state) => [...state, newObj]);
+        }
       },
     )
     .subscribe();
+
+  useEffect(() => {
+    if (inView) bottomRef.current?.scrollIntoView();
+  }, [newMessages]);
 
   return (
     <>

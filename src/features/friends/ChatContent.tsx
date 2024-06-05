@@ -123,6 +123,8 @@ function ChatContent({
         error={error}
         conversation_id={conversation_id}
         profile_pic={profile_pic}
+        bottomRef={bottomRef}
+        inView={inView}
       />
       {!inView && (
         <div className="sticky bottom-2 left-0 flex justify-center rounded-lg  px-2 py-1 ">

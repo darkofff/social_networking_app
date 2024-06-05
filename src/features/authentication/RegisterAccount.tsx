@@ -17,7 +17,6 @@ function RegisterAccount() {
   const { logout } = useLogout();
 
   function onSubmit(data: RegisterData) {
-    console.log("click");
     registerAccount(data);
   }
   function onError() {

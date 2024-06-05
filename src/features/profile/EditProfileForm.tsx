@@ -79,8 +79,7 @@ function EditProfileForm({ dataToUpdate }: DataToUpdate) {
           <label htmlFor="last_name">Last Name</label>
         </FormRow>
         <FormRow>
-          <input
-            type="text"
+          <textarea
             id="bio"
             placeholder="Tell us about yourself..."
             {...register("bio")}

@@ -4,7 +4,6 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 
 export function useGetInfiniteMessages(conversation_id: number) {
-  // console.log("useGetInfiniteMessages");
   const { data, status, error, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ["messages", conversation_id],
     queryFn: ({ pageParam = 1 }) => getMessages({ conversation_id, pageParam }),

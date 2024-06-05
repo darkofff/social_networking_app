@@ -26,6 +26,7 @@ import OutOfProfiles from "./features/search/OutOfProfiles";
 import Friends from "./pages/Friends";
 import Chat from "./features/friends/Chat";
 import FriendsList from "./features/friends/FriendsList";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 
@@ -61,7 +62,7 @@ function App() {
                   {/* 
                     path='search' is meant to do initial profile searching and then redirect to 
                     /search:username
-                    - It's necessarry so I can use replace on Navigate so user can't go 
+                    - It's necessary so I can use replace on Navigate so user can't go 
                      back to the previous profile 
                   */}
                   <Route path="search" element={<PrepareProfiles />} />
