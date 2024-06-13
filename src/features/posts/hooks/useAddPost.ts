@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { addPost as addPostApi } from "../../services/apiPosts";
-import { PostData } from "../news/NewsTypes";
+import { addPost as addPostApi } from "../../../services/apiPosts";
+import { PostData } from "../../news/NewsTypes";
 import { toast } from "react-toastify";
-import { useProfileData } from "../../contexts/ProfileDataContext";
+import { useProfileData } from "../../../contexts/ProfileDataContext";
 
 function useAddPost() {
   const queryClient = useQueryClient();

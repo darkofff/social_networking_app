@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getLikeInfo } from "../../services/apiPosts";
+import { getLikeInfo } from "../../../services/apiPosts";
 
 // interface ReceivedData{
 //   isPostLiked:

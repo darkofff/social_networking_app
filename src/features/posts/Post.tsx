@@ -1,8 +1,9 @@
-import PostActions from "./PostActions";
 import { useNavigate } from "react-router-dom";
 import { useGetProfileByUsername } from "../../hooks/useGetProfileByUsername";
 import { ProfileData } from "../../types/ProfileData";
 import { navigateTopPage } from "../../utilities/navigateTopPage";
+
+import PostActions from "./PostActions";
 
 interface Post {
   content: string;
@@ -76,6 +77,8 @@ function Post({ content, username, likes, post_id, currentUsername }: Post) {
             currentUsername={currentUsername}
             likes={likes}
             post_id={post_id}
+            last_name={last_name}
+            name={name}
           />
         </>
       )}

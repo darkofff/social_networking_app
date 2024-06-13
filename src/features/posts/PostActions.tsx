@@ -1,19 +1,26 @@
 import { AiFillLike, AiOutlineLike } from "react-icons/ai";
-
-import { useGetUserPostInfo } from "./useGetUserPostInfo";
-import { useHandleLikeAction } from "./useHandleLikeAction";
-import PostComment from "./PostComment";
+import { useGetUserPostInfo } from "./hooks/useGetUserPostInfo";
 import { BiCommentDetail } from "react-icons/bi";
 import { useState } from "react";
 
-interface Porps {
+import PostComment from "./PostComment";
+import { useHandleLikeAction } from "./hooks/useHandleLikeAction";
+interface Props {
   username: string;
   likes: number;
   post_id: number;
   currentUsername: string;
+  last_name: string;
+  name: string;
 }
 
-function PostActions({ username, post_id, currentUsername }: Porps) {
+function PostActions({
+  username,
+  post_id,
+  currentUsername,
+  last_name,
+  name,
+}: Props) {
   const { isPostLiked, likesNumber, isPending, error } = useGetUserPostInfo(
     currentUsername,
     post_id,
@@ -64,7 +71,16 @@ function PostActions({ username, post_id, currentUsername }: Porps) {
           </div>
         </div>
       </div>
-      <PostComment isPostOpen={isPostOpen} />
+
+      {isPostOpen && (
+        <PostComment
+          last_name={last_name}
+          name={name}
+          post_id={post_id}
+          currentUsername={currentUsername}
+          authorUsername={username}
+        />
+      )}
     </>
   );
 }

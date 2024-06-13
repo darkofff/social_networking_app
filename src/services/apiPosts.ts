@@ -1,5 +1,6 @@
 import { PostData } from "../features/news/NewsTypes";
 import { LikeAction } from "../features/posts/postTypes";
+import { CommentPost } from "../features/posts/types/CommentPost";
 import { PostUserData } from "../types/postUserData";
 import { supabase } from "./supabaseClient";
 
@@ -118,4 +119,19 @@ export async function likeAction({
 
     return { currentUsername, post_id };
   }
+}
+
+export async function sendComment({ post_id, content, username }: CommentPost) {
+  console.log(post_id);
+  console.log(content);
+  console.log(username);
+
+  const { error } = await supabase
+    .from("comments")
+    .insert({ post_id, sender_username: username, content })
+    .select();
+
+  if (error) throw new Error("Couldn't send comment");
+
+  return true;
 }

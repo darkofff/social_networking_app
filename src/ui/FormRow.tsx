@@ -36,13 +36,13 @@ function FormRow({ children, comment = false }: Props) {
         [&>label]:absolute [&>label]:top-0        
         [&>label]:w-[96%] 
         [&>label]:rounded-t-md 
-        [&>label]:bg-neutral-50 
+        
         [&>label]:px-3 
         [&>label]:py-1
         [&>label]:font-semibold
         [&>label]:text-neutral-300
-        dark:[&>label]:bg-neutral-700
-        dark:[&>label]:text-neutral-400
+        
+        
         
         [&>select]:rounded-full
         [&>select]:px-3
@@ -55,24 +55,45 @@ function FormRow({ children, comment = false }: Props) {
         [&>select]:focus-within:ring-green-500
 
         [&>textarea]:m-0
-        [&>textarea]:min-h-36
-        [&>textarea]:resize-y
-        [&>textarea]:rounded-md
-        [&>textarea]:bg-neutral-50
+        
+        
+        
+        
         [&>textarea]:px-3
         [&>textarea]:pt-7
         [&>textarea]:text-lg 
         [&>textarea]:font-normal
         [&>textarea]:outline-none
-        [&>textarea]:focus-within:outline
-        [&>textarea]:focus-within:ring-2
-        [&>textarea]:focus-within:ring-green-500
-        dark:[&>textarea]:bg-neutral-700
+        
+       
         dark:[&>textarea]:text-neutral-300
         dark:[&>textarea]:ring-0
         
 
-      ${!!comment && `[&>label]:bg-white dark:[&>label]:bg-neutral-500  dark:[&>label]:text-neutral-200 [&>textarea]:bg-white dark:[&>textarea]:bg-neutral-500 dark:[&>textarea]:text-neutral-100`}
+      ${
+        !!comment
+          ? `    
+      [&>label]:bg-white 
+      
+      dark:[&>label]:bg-neutral-600 
+      dark:[&>label]:text-neutral-300  
+      [&>textarea]:h-36 
+      
+      [&>textarea]:resize-none 
+      [&>textarea]:rounded-sm
+      [&>textarea]:border-b-2
+      [&>textarea]:border-transparent
+      [&>textarea]:bg-white 
+      [&>textarea]:focus-within:border-b-2
+      [&>textarea]:focus-within:border-green-500
+      [&>textarea]:focus-within:ring-0
+      dark:[&>textarea]:bg-neutral-600
+      dark:[&>textarea]:text-neutral-100
+      
+      
+      `
+          : "[&>label]:bg-neutral-50 dark:[&>label]:bg-neutral-700 dark:[&>label]:text-neutral-300 [&>textarea]:min-h-36 [&>textarea]:resize-y [&>textarea]:rounded-md [&>textarea]:bg-neutral-50 dark:[&>textarea]:bg-neutral-700"
+      }
         `}
     >
       {children}

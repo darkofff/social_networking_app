@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { likeAction as likeActionApi } from "../../services/apiPosts";
-import { LikeAction } from "./postTypes";
+import { likeAction as likeActionApi } from "../../../services/apiPosts";
+import { LikeAction } from "../postTypes";
 import { toast } from "react-toastify";
 
 // interface;

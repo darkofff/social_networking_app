@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPostAuthor } from "../../services/apiPosts";
+import { getPostAuthor } from "../../../services/apiPosts";
 
 export function usePostAuthor(username: string) {
   const { data: postUserData, isPending } = useQuery({

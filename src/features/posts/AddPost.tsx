@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { RawFormData } from "../news/NewsTypes";
-import { useAddPost } from "./useAddPost";
+
 import { useProfileData } from "../../contexts/ProfileDataContext";
 
 import Button from "../../ui/Button";
 import FormRow from "../../ui/FormRow";
+import { useAddPost } from "./hooks/useAddPost";
 
 function AddPost() {
   const { register, handleSubmit } = useForm<RawFormData>();
